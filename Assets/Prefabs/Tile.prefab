@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8223849072704482225}
   m_Layer: 0
-  m_Name: TowerPos
+  m_Name: PlacementPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
