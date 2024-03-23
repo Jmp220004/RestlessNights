@@ -63,4 +63,24 @@ public class RelativeTiles
         //Returns null if the relative X value and Y value are not properly within the relative tile storage bounds
         return null;
     }
+
+    /// <summary>
+    /// Returns the relative tiles as a list
+    /// </summary>
+    /// <returns></returns>
+    public List<Tile> getRelativeTileList()
+    {
+        List<Tile> outList = new List<Tile>();
+
+        if (TopL != null) { outList.Add(TopL); }
+        if (TopM != null) { outList.Add(TopM); }
+        if (TopR != null) { outList.Add(TopR); }
+        if (MidL != null) { outList.Add(MidL); }
+        if (MidR != null) { outList.Add(MidR); }
+        if (BotL != null) { outList.Add(BotL); }
+        if (BotM != null) { outList.Add(BotM); }
+        if (BotR != null) { outList.Add(BotR); }
+
+        return outList;
+    }
 }

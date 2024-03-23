@@ -58,7 +58,7 @@ public class Tile : MonoBehaviour
     /// Sets the tile's placed power segment object based on the GameObject argument
     /// </summary>
     /// <param name="newPowerObject"></param>
-    /// <returnsReturns -1 if the argument object does not have a powerline script attached. Otherwise returns 0></returns>
+    /// <returns>Returns -1 if the argument object does not have a powerline script attached. Otherwise returns 0</returns>
     public int setPowerObject(GameObject newPowerObject)
     {
         _powerObject = newPowerObject;
@@ -76,5 +76,17 @@ public class Tile : MonoBehaviour
         }
 
         return 0;
+    }
+
+
+
+
+
+
+
+    //GetSet
+    public RelativeTiles getRelativeTiles()
+    {
+        return _relativeTiles;
     }
 }
