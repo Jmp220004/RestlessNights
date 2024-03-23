@@ -34,7 +34,7 @@ public class Tile : MonoBehaviour
         }
         else
         {
-            _placeable.currentTile = this;
+            _placeable.CurrentTile = this;
         }
 
         return 0;
