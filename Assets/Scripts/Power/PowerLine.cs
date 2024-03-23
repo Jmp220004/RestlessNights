@@ -14,14 +14,19 @@ public class PowerLine : MonoBehaviour
     /// <returns>Returns -1 if the argument tile is a valid addition to the list. Otherwise returns 0</returns>
     public int attemptAddSegment(PowerSegment segmentToAdd,Tile tileToAddSegment)
     {
+        
+
         if(_powerSegments.Count == 0)
         {
-            addSegmentToTile(segmentToAdd, tileToAddSegment);
+            addSegmentToTile(segmentToAdd, tileToAddSegment, true);
             return 0;
         }
         else
         {
             //Create a list of valid tiles by finding the tiles directly adjacent by 1 tile in the X and Y directions. Then, check if the tileToAdd is a valid tile to add to the power line. 
+            /*EXPECTED BUG: It's likely that the current implementation of this system will make it impossible to order the line in the exact way you want if both the beginning and end tile are adjacent to the target tile. 
+             Figuring out exactly how to fix this to feel intuitive will be difficult until we have all the systems working properly, however, so we'll cross that bridge when we get to it -T*/
+
             Tile endTile = _powerSegments[_powerSegments.Count-1].CurrentTile; //The tile at the current end of the power line
 
             RelativeTiles endRelativeTiles = endTile.getRelativeTiles();
@@ -44,7 +49,34 @@ public class PowerLine : MonoBehaviour
 
             if(tileIsValid)
             {
-                addSegmentToTile(segmentToAdd, tileToAddSegment);
+                addSegmentToTile(segmentToAdd, tileToAddSegment, true);
+                return 0;
+            }
+
+            //Do the same thing, but check if the tile is valid for the beginning of the line.
+            Tile startTile = _powerSegments[0].CurrentTile; //The tile at the beginning of the power line
+
+            RelativeTiles startRelativeTiles = startTile.getRelativeTiles();
+            validTiles.Clear();
+            validTiles.Add(startRelativeTiles.getRelativeTileCoords(-1, 0));
+            validTiles.Add(startRelativeTiles.getRelativeTileCoords(1, 0));
+            validTiles.Add(startRelativeTiles.getRelativeTileCoords(0, -1));
+            validTiles.Add(startRelativeTiles.getRelativeTileCoords(0, 1));
+
+
+            tileIsValid = false;
+
+            foreach (Tile tile in validTiles)
+            {
+                if (tile == tileToAddSegment)
+                {
+                    tileIsValid = true;
+                }
+            }
+
+            if (tileIsValid)
+            {
+                addSegmentToTile(segmentToAdd, tileToAddSegment, false);
                 return 0;
             }
         }
@@ -52,10 +84,19 @@ public class PowerLine : MonoBehaviour
         return -1;
     }
 
-    private void addSegmentToTile(PowerSegment segmentToAdd, Tile tileToAddSegment)
+    private void addSegmentToTile(PowerSegment segmentToAdd, Tile tileToAddSegment, bool insertEnd)
     {
-        _powerSegments.Add(segmentToAdd);
-        tileToAddSegment.setPowerObject(segmentToAdd.gameObject);
+        switch(insertEnd)
+        {
+            case true:
+                _powerSegments.Add(segmentToAdd);
+                tileToAddSegment.setPowerObject(segmentToAdd.gameObject);
+                break;
+            case false:
+                _powerSegments.Insert(0, segmentToAdd);
+                tileToAddSegment.setPowerObject(segmentToAdd.gameObject);
+                break;
+        }
     }
 
 
