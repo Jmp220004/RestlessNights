@@ -8,13 +8,16 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject _placedObject;
     [SerializeField] private Placeable _placeable;
     [SerializeField] private Transform _placeablePosition; //The position placeable objects are moved to when the tile object is set
+    [SerializeField] private GameObject _powerObject; //The power segment game object attached to this tile
+    [SerializeField] private PowerSegment _powerSegment;
+    [SerializeField] private Transform _powerPosition;
     [SerializeField] private SelectionStatus _selectionStatus;
     [Space]
     [Header("Fill References")]
     [SerializeField] private RelativeTiles _relativeTiles;
 
     /// <summary>
-    /// Sets the tile's placed object variables based on the game object argument
+    /// Sets the tile's placed object variables based on the GameObject argument
     /// </summary>
     /// <param name="newPlacedObject"></param>
     /// <returns>Returns -1 if the argument object does not have a placeable script attached. Otherwise returns 0</returns>
@@ -49,5 +52,29 @@ public class Tile : MonoBehaviour
 
         _placedObject = null;
         _placeable = null;
+    }
+
+    /// <summary>
+    /// Sets the tile's placed power segment object based on the GameObject argument
+    /// </summary>
+    /// <param name="newPowerObject"></param>
+    /// <returnsReturns -1 if the argument object does not have a powerline script attached. Otherwise returns 0></returns>
+    public int setPowerObject(GameObject newPowerObject)
+    {
+        _powerObject = newPowerObject;
+        _powerObject.transform.position = _powerPosition.transform.position;
+
+        _powerSegment = _powerObject.GetComponent<PowerSegment>();
+
+        if (_powerSegment == null)
+        {
+            return -1;
+        }
+        else
+        {
+            _powerSegment.CurrentTile = this;
+        }
+
+        return 0;
     }
 }
