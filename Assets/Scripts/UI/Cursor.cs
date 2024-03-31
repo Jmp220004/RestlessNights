@@ -3,40 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Cursor : MonoBehaviour
+public class Cursor : StateMachineMB
 {
     [Header("Variables")]
-    [SerializeField] private bool _cursorEnabled;
-    [SerializeField] private PlaceData _heldObject;
+    public bool CursorEnabled;
+    public PlaceData HeldObject;
 
     [Header("References")]
-    [SerializeField] private TouchInputManager _tim;
-    [SerializeField] private Image _cursorImage;
-    [SerializeField] private GameObject _cursorArtObject;
-    [SerializeField] private Inventory _inventory;
+    public TouchInputManager Tim;
+    public Image CursorImage;
+    public GameObject CursorArtObject;
+    public Inventory Inventory;
+
+    // State instances
+    public CursorTowerState towerState = new CursorTowerState();
+
 
     //Set up C# events related to the touch manager
     private void Awake()
     {
-        _tim.startHover += onHover;
-        _tim.stopHover += onStopHover;
-        _tim.releasedHover += onRelease;
-        _tim.startUIHover += onStartUIHover;
+        ChangeState(towerState);
+
+        Tim.startHover += onHover;
+        Tim.stopHover += onStopHover;
+        Tim.releasedHover += onRelease;
+        Tim.startUIHover += onStartUIHover;
     }
 
     //Unsubscribe from the touch manager once the cursor object is destroyed
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        _tim.startHover -= onHover;
-        _tim.stopHover -= onStopHover;
-        _tim.releasedHover -= onRelease;
-        _tim.startUIHover -= onStartUIHover;
+        base.OnDestroy();
+
+        Tim.startHover -= onHover;
+        Tim.stopHover -= onStopHover;
+        Tim.releasedHover -= onRelease;
+        Tim.startUIHover -= onStartUIHover;
     }
 
     private void Start()
     {
         //Check the initial cursor enabled state
-        if(_cursorEnabled)
+        if(CursorEnabled)
         {
             enableCursor();
         }
@@ -46,144 +54,75 @@ public class Cursor : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
-        gameObject.transform.position = _tim.continuousTouchData.currentTouchPosition;
+        base.Update();
+
+        gameObject.transform.position = Tim.continuousTouchData.currentTouchPosition;
     }
 
     /// <summary>
     /// Activates when the player is holding the cursor over a tile
     /// </summary>
-    /// <param name="hoverObject"></param>
-    private void onHover(GameObject tileObject)
+    public void onHover(GameObject tileObject)
     {
-
-        //Code the handles moving tiles when clicked
-        if (_heldObject == null)
+        if(CurrentState is ICursorState)
         {
-            Tile attemptedMoveTile = tileObject.GetComponent<Tile>();
-            if (attemptedMoveTile != null)
-            {
-                if(attemptedMoveTile.Occupied)
-                {
-                    _heldObject = attemptedMoveTile.PlaceData;
-                    attemptedMoveTile.clearTile();
-                }
-            }
+            ICursorState thisState = (ICursorState)CurrentState;
+            thisState.onHover(tileObject, this);
         }
-        else
-        {
-            //Ghost hover code
-            Tile attemptedGhostTile = tileObject.GetComponent<Tile>();
-            if (attemptedGhostTile != null && attemptedGhostTile.Occupied == false)
-            {
-                //Ghost hover code
-                attemptedGhostTile.getGhostTile().generateGhostTile(_heldObject);
-                attemptedGhostTile.getGhostTile().enableGhostArt();
-            }
-        }
-
-        disableCursor();
     }
 
     /// <summary>
     /// Activates when the player stops holding the cursor over a tile but is still holding town the button
     /// </summary>
-    /// <param name="hoverObject"></param>
-    private void onStopHover(GameObject tileObject)
+    public void onStopHover(GameObject tileObject)
     {
-        if(_heldObject != null)
+        if (CurrentState is ICursorState)
         {
-            enableCursor();
-
-            //Ghost hover code
-            Tile attemptedGhostTile = tileObject.GetComponent<Tile>();
-            if (attemptedGhostTile != null)
-            {
-                //Ghost hover code
-                attemptedGhostTile.getGhostTile().disableGhostArt();
-            }
+            ICursorState thisState = (ICursorState)CurrentState;
+            thisState.onStopHover(tileObject, this);
         }
     }
 
     /// <summary>
     /// Activates when the player releases their finger input over a tile
     /// </summary>
-    /// <param name="hoverObject"></param>
-    private void onRelease(GameObject tileObject)
+    public void onRelease(GameObject tileObject)
     {
-        if (_heldObject != null && tileObject != null)
+        if (CurrentState is ICursorState)
         {
-            Tile attemptedPlacementTile = tileObject.GetComponent<Tile>();
-            if (attemptedPlacementTile != null && attemptedPlacementTile.Occupied == false)
-            {
-                //Spawn the placeable object from the heldObject's placement data
-                GameObject spawnedPlaceableObj = Instantiate(_heldObject.placeObject, Vector3.zero, Quaternion.identity);
-                //Check to see if the placement is valid
-                int validityCheck = attemptedPlacementTile.setTileObject(spawnedPlaceableObj);
-                //If the placement is not valid, despawn the spawned object
-                if (validityCheck == -1)
-                {
-                    Destroy(spawnedPlaceableObj);
-                    //If the object can't be placed, put it back in the inventory
-                    _inventory.addInventoryValues(_heldObject.inventoryID, 1);
-                }
-                else
-                {
-                    //If it was valid, set the placement data of the tile to the current heldObject
-                    attemptedPlacementTile.PlaceData = _heldObject;
-                    //Delete the ghost version of the object as well
-                    attemptedPlacementTile.getGhostTile().disableGhostArt();
-                }
-            }
+            ICursorState thisState = (ICursorState)CurrentState;
+            thisState.onRelease(tileObject, this);
         }
-        else
-        {
-            //If the object can't be placed, put it back in the inventory
-            if(_heldObject != null)
-            {
-                _inventory.addInventoryValues(_heldObject.inventoryID, 1);
-            }
-        }
-
-        _heldObject = null;
-        disableCursor();
     }
 
     /// <summary>
     /// Activates when the player starts holding over a selectable UI element
     /// </summary>
-    /// <param name="uiHoverObject"></param>
-    private void onStartUIHover(GameObject uiHoverObject)
+    public void onStartUIHover(GameObject uiHoverObject)
     {
-        //Checks to see if the player is hovering over a dragable UI button. If so, enable the cursor and set the held data to the button's placeable data.
-        DragButton drag = uiHoverObject.GetComponent<DragButton>();
-        if (drag != null && _heldObject == null)
+        if (CurrentState is ICursorState)
         {
-            //Check inventory requirements
-            if (_inventory.inventoryItems[drag.buttonPlaceable.inventoryID] > 0)
-            {
-                _inventory.addInventoryValues(drag.buttonPlaceable.inventoryID, -1);
-                _heldObject = drag.buttonPlaceable;
-                enableCursor();
-            }
+            ICursorState thisState = (ICursorState)CurrentState;
+            thisState.onStartUIHover(uiHoverObject, this);
         }
     }
 
-    private void disableCursor()
+    public void disableCursor()
     {
-        _cursorArtObject.SetActive(false);
+        CursorArtObject.SetActive(false);
     }
 
-    private void enableCursor()
+    public void enableCursor()
     {
-        _cursorArtObject.SetActive(true);
-        _cursorImage.sprite = _heldObject.objectSpr;
+        CursorArtObject.SetActive(true);
+        CursorImage.sprite = HeldObject.objectSpr;
     }
 
-    private void enableCursor(Sprite newSprite)
+    public void enableCursor(Sprite newSprite)
     {
-        _cursorArtObject.SetActive(true);
-        _cursorImage.sprite = newSprite;
+        CursorArtObject.SetActive(true);
+        CursorImage.sprite = newSprite;
     }
 }

@@ -3891,12 +3891,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0544d8b1385bc4a8374136260a978c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cursorEnabled: 0
-  _heldObject: {fileID: 0}
-  _tim: {fileID: 700623715}
-  _cursorImage: {fileID: 1924334377}
-  _cursorArtObject: {fileID: 1924334375}
-  _inventory: {fileID: 1378589473}
+  CursorEnabled: 0
+  HeldObject: {fileID: 0}
+  Tim: {fileID: 700623715}
+  CursorImage: {fileID: 1924334377}
+  CursorArtObject: {fileID: 1924334375}
+  Inventory: {fileID: 1378589473}
 --- !u!1 &1030927870
 GameObject:
   m_ObjectHideFlags: 0
