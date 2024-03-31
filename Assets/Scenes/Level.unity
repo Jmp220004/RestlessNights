@@ -3630,6 +3630,7 @@ GameObject:
   - component: {fileID: 914652055}
   - component: {fileID: 914652054}
   - component: {fileID: 914652056}
+  - component: {fileID: 914652058}
   m_Layer: 5
   m_Name: CableButton
   m_TagString: Selectable
@@ -3712,6 +3713,18 @@ MonoBehaviour:
   _inventory: {fileID: 1378589473}
   _trackedInventorySlot: 2
   _textField: {fileID: 371504726}
+--- !u!114 &914652058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914652052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41977f0baea83a4fac0a847bf75a698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &978691314
 PrefabInstance:
   m_ObjectHideFlags: 0
