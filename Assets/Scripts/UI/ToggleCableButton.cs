@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class ToggleCableButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Cursor _cursor;
+    [SerializeField] private GameObject _uiHighlight;
+
+    public void enableHighlight()
     {
-        
+        _uiHighlight.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void disableHighlight()
     {
-        
+        _uiHighlight.SetActive(false);
     }
 
-    public void Test()
+    public void onClick()
     {
-        Debug.Log("Huh?");
+        _cursor.onToggleCablePress();
     }
 }

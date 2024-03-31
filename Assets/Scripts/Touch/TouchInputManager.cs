@@ -49,6 +49,14 @@ public class TouchInputManager : MonoBehaviour
         if (context.started)
         {
             continuousTouchData.touchIsHeld = true;
+
+            //Handles UI raycast code
+            GameObject newHoverUI = RaycastUtilities.PointerIsOverSelectable(continuousTouchData.currentTouchPosition);
+            if (newHoverUI != hoveredUI && newHoverUI != null)
+            {
+                hoveredUI = newHoverUI;
+                startUIHover?.Invoke(hoveredUI);
+            }
         }
         
         if (context.canceled)
@@ -70,7 +78,7 @@ public class TouchInputManager : MonoBehaviour
             continuousTouchData.timeTouchHeld = 0;
             continuousTouchData.timeSinceTouchLast = 0;
 
-            //Execute the release code if there's currently a hovered object
+            //Execute the release code
             releasedHover?.Invoke(hoveredObject);
             hoveredObject = null;
             releasedUIHover?.Invoke(hoveredUI);

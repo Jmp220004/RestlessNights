@@ -14,20 +14,26 @@ public class Cursor : StateMachineMB
     public Image CursorImage;
     public GameObject CursorArtObject;
     public Inventory Inventory;
+    public ToggleCableButton cableButton;
 
     // State instances
-    public CursorTowerState towerState = new CursorTowerState();
+    public CursorTowerState towerState;
+    public CursorCableState cableState;
 
 
     //Set up C# events related to the touch manager
     private void Awake()
     {
+        towerState = new CursorTowerState();
+        cableState = new CursorCableState(this);
+
         ChangeState(towerState);
 
         Tim.startHover += onHover;
         Tim.stopHover += onStopHover;
         Tim.releasedHover += onRelease;
         Tim.startUIHover += onStartUIHover;
+        Tim.releasedUIHover += onReleaseUIHover;
     }
 
     //Unsubscribe from the touch manager once the cursor object is destroyed
@@ -39,6 +45,7 @@ public class Cursor : StateMachineMB
         Tim.stopHover -= onStopHover;
         Tim.releasedHover -= onRelease;
         Tim.startUIHover -= onStartUIHover;
+        Tim.releasedUIHover -= onReleaseUIHover;
     }
 
     private void Start()
@@ -106,6 +113,28 @@ public class Cursor : StateMachineMB
         {
             ICursorState thisState = (ICursorState)CurrentState;
             thisState.onStartUIHover(uiHoverObject, this);
+        }
+    }
+
+    /// <summary>
+    /// Activates when the player stops holding over a selectable UI element
+    /// </summary>
+    public void onReleaseUIHover(GameObject uiHoverObject)
+    {
+        if (CurrentState is ICursorState)
+        {
+            ICursorState thisState = (ICursorState)CurrentState;
+            thisState.onReleaseUIHover(uiHoverObject, this);
+        }
+    }
+
+    //Activates when the player tables the toggle cable button
+    public void onToggleCablePress()
+    {
+        if (CurrentState is ICursorState)
+        {
+            ICursorState thisState = (ICursorState)CurrentState;
+            thisState.onToggleCablePress(this);
         }
     }
 

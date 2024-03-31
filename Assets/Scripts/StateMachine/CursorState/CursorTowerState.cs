@@ -85,6 +85,11 @@ public class CursorTowerState : State, ICursorState
                     attemptedPlacementTile.getGhostTile().disableGhostArt();
                 }
             }
+            else
+            {
+                //If the object can't be placed, put it back in the inventory
+                inCursor.Inventory.addInventoryValues(inCursor.HeldObject.inventoryID, 1);
+            }
         }
         else
         {
@@ -116,5 +121,19 @@ public class CursorTowerState : State, ICursorState
                 inCursor.enableCursor();
             }
         }
+    }
+
+    /// <summary>
+    /// Activates when the player stops holding over a selectable UI element
+    /// </summary>
+    public void onReleaseUIHover(GameObject uiHoverObject, Cursor inCursor)
+    {
+
+    }
+
+    //Activates when the player tables the toggle cable button
+    public void onToggleCablePress(Cursor inCursor)
+    {
+        inCursor.ChangeState(inCursor.cableState);
     }
 }

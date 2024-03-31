@@ -8,4 +8,6 @@ public interface ICursorState
     void onStopHover(GameObject tileObject, Cursor inCursor);
     void onRelease(GameObject tileObject, Cursor inCursor);
     void onStartUIHover(GameObject uiHoverObject, Cursor inCursor);
+    void onReleaseUIHover(GameObject uiHoverObject, Cursor inCursor);
+    void onToggleCablePress(Cursor inCursor);
 }
