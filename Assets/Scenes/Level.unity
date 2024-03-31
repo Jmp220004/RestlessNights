@@ -3629,6 +3629,7 @@ GameObject:
   - component: {fileID: 914652053}
   - component: {fileID: 914652055}
   - component: {fileID: 914652054}
+  - component: {fileID: 914652056}
   m_Layer: 5
   m_Name: CableButton
   m_TagString: Selectable
@@ -3696,6 +3697,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914652052}
   m_CullTransparentMesh: 1
+--- !u!114 &914652056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914652052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfbcb0b911995742b152e9a7b8070e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventory: {fileID: 1378589473}
+  _trackedInventorySlot: 2
+  _textField: {fileID: 371504726}
 --- !u!1001 &978691314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5309,6 +5325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingGenerators: 3
   _startingTowers: 3
+  _startingCables: 5
 --- !u!1 &1413233004
 GameObject:
   m_ObjectHideFlags: 0
