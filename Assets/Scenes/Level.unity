@@ -2347,7 +2347,11 @@ MonoBehaviour:
     touchIsHeld: 0
     timeTouchHeld: 0
     timeSinceTouchLast: 0
+  hoveredObject: {fileID: 0}
   _pressHeldThreshold: 0
+  _touchableLayermask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &748482948
 PrefabInstance:
   m_ObjectHideFlags: 0
