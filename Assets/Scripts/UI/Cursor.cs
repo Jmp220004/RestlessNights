@@ -13,6 +13,7 @@ public class Cursor : MonoBehaviour
     [SerializeField] private TouchInputManager _tim;
     [SerializeField] private Image _cursorImage;
     [SerializeField] private GameObject _cursorArtObject;
+    [SerializeField] private Inventory _inventory;
 
     //Set up C# events related to the touch manager
     private void Awake()
@@ -105,12 +106,22 @@ public class Cursor : MonoBehaviour
                 if (validityCheck == -1)
                 {
                     Destroy(spawnedPlaceableObj);
+                    //If the object can't be placed, put it back in the inventory
+                    _inventory.addInventoryValues(_heldObject.inventoryID, 1);
                 }
                 else
                 {
                     //If it was valid, set the placement data of the tile to the current heldObject
                     attemptedPlacementTile.PlaceData = _heldObject;
                 }
+            }
+        }
+        else
+        {
+            //If the object can't be placed, put it back in the inventory
+            if(_heldObject != null)
+            {
+                _inventory.addInventoryValues(_heldObject.inventoryID, 1);
             }
         }
 
@@ -126,10 +137,15 @@ public class Cursor : MonoBehaviour
     {
         //Checks to see if the player is hovering over a dragable UI button. If so, enable the cursor and set the held data to the button's placeable data.
         DragButton drag = uiHoverObject.GetComponent<DragButton>();
-        if(drag != null && _heldObject == null)
+        if (drag != null && _heldObject == null)
         {
-            _heldObject = drag.buttonPlaceable;
-            enableCursor();
+            //Check inventory requirements
+            if (_inventory.inventoryItems[drag.buttonPlaceable.inventoryID] > 0)
+            {
+                _inventory.addInventoryValues(drag.buttonPlaceable.inventoryID, -1);
+                _heldObject = drag.buttonPlaceable;
+                enableCursor();
+            }
         }
     }
 
