@@ -15,3 +15,6 @@ MonoBehaviour:
   objectSpr: {fileID: 21300000, guid: 983e6386270ddf04cac7ed27657ede2b, type: 3}
   placeObject: {fileID: 6261050100736329192, guid: 03701518915ef414eb254fb3c0e321aa,
     type: 3}
+  ghostObject: {fileID: 6261050100736329192, guid: fa18e5ea882a6c24692926a8f0289deb,
+    type: 3}
+  inventoryID: 0

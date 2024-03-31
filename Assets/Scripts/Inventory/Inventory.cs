@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     //ID 0 = default generators
     //ID 1 = default towers
     //ID 2 = cables
+
     public int[] inventoryItems { get; private set; } = new int[3];
 
     private void Start()

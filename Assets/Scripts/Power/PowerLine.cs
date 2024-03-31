@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum lineEnd
+{
+    beginning,
+    end
+}
+
 public class PowerLine : MonoBehaviour
 {
     public List<PowerSegment> _powerSegments;
@@ -83,6 +89,82 @@ public class PowerLine : MonoBehaviour
 
         return -1;
     }
+
+    public int attemptAddSegment(PowerSegment segmentToAdd, Tile tileToAddSegment, lineEnd lineEnd)
+    {
+
+
+        if (_powerSegments.Count == 0)
+        {
+            addSegmentToTile(segmentToAdd, tileToAddSegment, true);
+            return 0;
+        }
+        else
+        {
+            //Create a list of valid tiles by finding the tiles directly adjacent by 1 tile in the X and Y directions. Then, check if the tileToAdd is a valid tile to add to the power line. 
+
+            if(lineEnd == lineEnd.end)
+            {
+                Tile endTile = _powerSegments[_powerSegments.Count - 1].CurrentTile; //The tile at the current end of the power line
+
+                RelativeTiles endRelativeTiles = endTile.getRelativeTiles();
+                List<Tile> validTiles = new List<Tile>();
+                validTiles.Add(endRelativeTiles.getRelativeTileCoords(-1, 0));
+                validTiles.Add(endRelativeTiles.getRelativeTileCoords(1, 0));
+                validTiles.Add(endRelativeTiles.getRelativeTileCoords(0, -1));
+                validTiles.Add(endRelativeTiles.getRelativeTileCoords(0, 1));
+
+
+                bool tileIsValid = false;
+
+                foreach (Tile tile in validTiles)
+                {
+                    if (tile == tileToAddSegment)
+                    {
+                        tileIsValid = true;
+                    }
+                }
+
+                if (tileIsValid)
+                {
+                    addSegmentToTile(segmentToAdd, tileToAddSegment, true);
+                    return 0;
+                }
+            }
+            else if(lineEnd == lineEnd.beginning)
+            {
+                //Do the same thing, but check if the tile is valid for the beginning of the line.
+                Tile startTile = _powerSegments[0].CurrentTile; //The tile at the beginning of the power line
+
+                RelativeTiles startRelativeTiles = startTile.getRelativeTiles();
+                List<Tile> validTiles = new List<Tile>();
+                validTiles.Add(startRelativeTiles.getRelativeTileCoords(-1, 0));
+                validTiles.Add(startRelativeTiles.getRelativeTileCoords(1, 0));
+                validTiles.Add(startRelativeTiles.getRelativeTileCoords(0, -1));
+                validTiles.Add(startRelativeTiles.getRelativeTileCoords(0, 1));
+
+
+                bool tileIsValid = false;
+
+                foreach (Tile tile in validTiles)
+                {
+                    if (tile == tileToAddSegment)
+                    {
+                        tileIsValid = true;
+                    }
+                }
+
+                if (tileIsValid)
+                {
+                    addSegmentToTile(segmentToAdd, tileToAddSegment, false);
+                    return 0;
+                }
+            }
+        }
+
+        return -1;
+    }
+
 
     private void addSegmentToTile(PowerSegment segmentToAdd, Tile tileToAddSegment, bool insertEnd)
     {

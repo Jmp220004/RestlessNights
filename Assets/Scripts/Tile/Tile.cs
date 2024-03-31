@@ -10,6 +10,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject _placedObject;
     [SerializeField] private Placeable _placeable;
     [SerializeField] private Transform _placeablePosition; //The position placeable objects are moved to when the tile object is set
+    [SerializeField] private GhostTile _ghostTile; //The ghost tile object responsible for handling ghost placement
     [SerializeField] private GameObject _powerObject; //The power segment game object attached to this tile
     [SerializeField] private PowerSegment _powerSegment;
     [SerializeField] private Transform _powerPosition;
@@ -93,5 +94,10 @@ public class Tile : MonoBehaviour
     public RelativeTiles getRelativeTiles()
     {
         return _relativeTiles;
+    }
+
+    public GhostTile getGhostTile()
+    {
+        return _ghostTile;
     }
 }

@@ -69,7 +69,17 @@ public class Cursor : MonoBehaviour
                     attemptedMoveTile.clearTile();
                 }
             }
-
+        }
+        else
+        {
+            //Ghost hover code
+            Tile attemptedGhostTile = tileObject.GetComponent<Tile>();
+            if (attemptedGhostTile != null && attemptedGhostTile.Occupied == false)
+            {
+                //Ghost hover code
+                attemptedGhostTile.getGhostTile().generateGhostTile(_heldObject);
+                attemptedGhostTile.getGhostTile().enableGhostArt();
+            }
         }
 
         disableCursor();
@@ -79,11 +89,19 @@ public class Cursor : MonoBehaviour
     /// Activates when the player stops holding the cursor over a tile but is still holding town the button
     /// </summary>
     /// <param name="hoverObject"></param>
-    private void onStopHover(GameObject hoverObject)
+    private void onStopHover(GameObject tileObject)
     {
         if(_heldObject != null)
         {
             enableCursor();
+
+            //Ghost hover code
+            Tile attemptedGhostTile = tileObject.GetComponent<Tile>();
+            if (attemptedGhostTile != null)
+            {
+                //Ghost hover code
+                attemptedGhostTile.getGhostTile().disableGhostArt();
+            }
         }
     }
 
@@ -113,6 +131,8 @@ public class Cursor : MonoBehaviour
                 {
                     //If it was valid, set the placement data of the tile to the current heldObject
                     attemptedPlacementTile.PlaceData = _heldObject;
+                    //Delete the ghost version of the object as well
+                    attemptedPlacementTile.getGhostTile().disableGhostArt();
                 }
             }
         }

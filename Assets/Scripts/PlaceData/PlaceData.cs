@@ -6,5 +6,6 @@ public class PlaceData : ScriptableObject
 {
     public Sprite objectSpr;
     public GameObject placeObject;
+    public GameObject ghostObject;
     public int inventoryID;
 }
