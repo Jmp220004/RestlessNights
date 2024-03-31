@@ -9,12 +9,16 @@ public class TouchInputManager : MonoBehaviour
     public ContinuousTouchData continuousTouchData;
 
     public GameObject hoveredObject;
+    public GameObject hoveredUI;
 
     public Action<Vector2> tap;
     public Action<Vector2> hold;
     public Action<GameObject> startHover;
     public Action<GameObject> stopHover;
     public Action<GameObject> releasedHover;
+
+    public Action<GameObject> startUIHover;
+    public Action<GameObject> releasedUIHover;
 
     [Header("Interaction Settings")]
     [SerializeField] private float _pressHeldThreshold;
@@ -67,11 +71,10 @@ public class TouchInputManager : MonoBehaviour
             continuousTouchData.timeSinceTouchLast = 0;
 
             //Execute the release code if there's currently a hovered object
-            if(hoveredObject)
-            {
-                releasedHover?.Invoke(hoveredObject);
-                hoveredObject = null;
-            }
+            releasedHover?.Invoke(hoveredObject);
+            hoveredObject = null;
+            releasedUIHover?.Invoke(hoveredUI);
+            hoveredUI = null;
         }
     }
 
@@ -118,6 +121,14 @@ public class TouchInputManager : MonoBehaviour
                     hoveredObject = null;
                 }
             }
+
+            //Handles UI raycast code
+            GameObject newHoverUI = RaycastUtilities.PointerIsOverSelectable(continuousTouchData.currentTouchPosition);
+            if(newHoverUI != hoveredUI && newHoverUI != null)
+            {
+                hoveredUI = newHoverUI;
+                startUIHover?.Invoke(hoveredUI);
+            } 
         }
     }
 }
