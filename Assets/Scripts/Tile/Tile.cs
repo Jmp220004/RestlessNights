@@ -5,9 +5,12 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [Header("Tile Contents")]
+    public bool Occupied;
+    public PlaceData PlaceData;
     [SerializeField] private GameObject _placedObject;
     [SerializeField] private Placeable _placeable;
     [SerializeField] private Transform _placeablePosition; //The position placeable objects are moved to when the tile object is set
+    [SerializeField] private GhostTile _ghostTile; //The ghost tile object responsible for handling ghost placement
     [SerializeField] private GameObject _powerObject; //The power segment game object attached to this tile
     [SerializeField] private PowerSegment _powerSegment;
     [SerializeField] private Transform _powerPosition;
@@ -20,7 +23,7 @@ public class Tile : MonoBehaviour
     /// Sets the tile's placed object variables based on the GameObject argument
     /// </summary>
     /// <param name="newPlacedObject"></param>
-    /// <returns>Returns -1 if the argument object does not have a placeable script attached. Otherwise returns 0</returns>
+    /// <returns>Returns -1 if the argument object does not have a placeable script attached or if the tile is already occupied. Otherwise returns 0</returns>
     public int setTileObject(GameObject newPlacedObject)
     {
         _placedObject = newPlacedObject;
@@ -37,6 +40,7 @@ public class Tile : MonoBehaviour
             _placeable.CurrentTile = this;
         }
 
+        Occupied = true;
         return 0;
     }
 
@@ -50,6 +54,8 @@ public class Tile : MonoBehaviour
             Destroy(_placedObject);
         }
 
+        Occupied = false;
+        PlaceData = null;
         _placedObject = null;
         _placeable = null;
     }
@@ -88,5 +94,10 @@ public class Tile : MonoBehaviour
     public RelativeTiles getRelativeTiles()
     {
         return _relativeTiles;
+    }
+
+    public GhostTile getGhostTile()
+    {
+        return _ghostTile;
     }
 }
