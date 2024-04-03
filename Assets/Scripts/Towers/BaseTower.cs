@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class BaseTower : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public abstract class BaseTower : MonoBehaviour
     void Update()
     {
         VerifyCharge();
-        Shoot();
+        //Shoot();
     }
 
     void VerifyCharge()
@@ -37,17 +38,16 @@ public abstract class BaseTower : MonoBehaviour
         }
     }
 
-    public virtual void Shoot()    //instantiate the projectile in direction
+    public virtual void Shoot(InputAction.CallbackContext context)    //instantiate the projectile in direction
     {
-        if(_isCharged == true)
+        if(_isCharged == true || context.performed)
         {
             PlayFX();
             GameObject bulletObj = Instantiate(_protectileToFire, _projectileSpawnPoint.transform.position,
     _projectileSpawnPoint.transform.rotation) as GameObject;
-            Rigidbody bulletRig = bulletObj.GetComponent<Rigidbody>();
-            bulletRig.AddForce(bulletRig.transform.up * _projectileSpeed);
-            Destroy(bulletObj, 5f);
-            _currentCharge = _currentCharge - _chargeNeededToFire;
+          
+            //reduce current charge held by tower, by the ammount of charge it needs to fire
+            _currentCharge = _currentCharge - _chargeNeededToFire; 
         }
         else
         {

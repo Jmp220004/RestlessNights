@@ -4,30 +4,33 @@ using UnityEngine;
 
 public abstract class BaseProjectile : MonoBehaviour
 {
-    [SerializeField] private float _projectileSpeed;
-    [SerializeField] private float _lifeSpan;
-
-    private float _timer;
+   // [SerializeField] private float _projectileSpeed; *currently unused. may implement later*
+    [SerializeField] private float _lifeSpan;       //time to pass until object destroys itself
+    [SerializeField] private float _moveDirectionX; //negative var will move object right, positive moves left
+    [SerializeField] private GameObject _projectile;//projectile gameobject needed in order to destroy self
 
     // Start is called before the first frame update
     void Start()
     {
-        _timer = 0;
+
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        
+        Move();
+        SelfDestruct();
     }
 
+    //move projectile left to right, or right to left, based on _moveDirectionX value
     public virtual void Move()
     {
-
+        transform.localPosition += new Vector3(_moveDirectionX, 0, 0);
     }
 
-    void SelfDestruct() //destroys self if collides with enemy/environment/reaches lifespan time
+    //destroys self if collides with enemy/environment/reaches lifespan time
+    public virtual void SelfDestruct() 
     {
-        
+        //add destroy on collision with enemy
+        Destroy(_projectile, _lifeSpan);
     }
 }

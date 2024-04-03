@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TowerData
   m_EditorClassIdentifier: 
   objectSpr: {fileID: 21300000, guid: 61c26f709d5c66c469399c97bcd90ec5, type: 3}
-  placeObject: {fileID: 6261050100736329192, guid: 2c2ed765c9c0e7241b3afbb33a351b7c,
+  placeObject: {fileID: 5292089970885441561, guid: a495a97ac6ea1c048880d7ac58668957,
     type: 3}
-  ghostObject: {fileID: 6261050100736329192, guid: a6fb37a673041524b9ea3464244df81b,
+  ghostObject: {fileID: 5292089970885441561, guid: 75208ba00bd55954d90c4a608884a1ea,
     type: 3}
   inventoryID: 1
