@@ -3958,6 +3958,10 @@ MonoBehaviour:
   CursorArtObject: {fileID: 1924334375}
   Inventory: {fileID: 1378589473}
   cableButton: {fileID: 914652058}
+  PowerlinePrefab: {fileID: 4839324257524687266, guid: 0470b14fd28f74940a82dd16d7abc308,
+    type: 3}
+  PowerSegmentPrefab: {fileID: 6863665971273478074, guid: d0b25336aac2d594aba779d959492332,
+    type: 3}
 --- !u!1 &1030927870
 GameObject:
   m_ObjectHideFlags: 0
@@ -5352,7 +5356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startingGenerators: 3
   _startingTowers: 3
-  _startingCables: 5
+  _startingCables: 8
 --- !u!1 &1389837410
 GameObject:
   m_ObjectHideFlags: 0

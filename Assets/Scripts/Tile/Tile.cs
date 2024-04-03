@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
 {
     [Header("Tile Contents")]
     public bool Occupied;
+    public bool HasPowerObject;
     public PlaceData PlaceData;
     [SerializeField] private GameObject _placedObject;
     [SerializeField] private Placeable _placeable;
@@ -78,13 +79,24 @@ public class Tile : MonoBehaviour
         }
         else
         {
+            HasPowerObject = true;
             _powerSegment.CurrentTile = this;
         }
 
         return 0;
     }
 
+    public void clearPowerObject()
+    {
+        if(_powerObject != null)
+        {
+            Destroy(_powerObject);
+        }
 
+        HasPowerObject = false;
+        _powerObject = null;
+        _powerSegment = null;
+    }
 
 
 
@@ -99,5 +111,10 @@ public class Tile : MonoBehaviour
     public GhostTile getGhostTile()
     {
         return _ghostTile;
+    }
+
+    public PowerSegment getPowerSegment()
+    {
+        return _powerSegment;
     }
 }

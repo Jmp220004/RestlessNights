@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class PowerSegment : MonoBehaviour
 {
+    public PowerLine CurrentLine;
     public Tile CurrentTile;
 }
