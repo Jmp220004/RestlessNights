@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public abstract class StateMachineMB : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public abstract class StateMachineMB : MonoBehaviour
     State _previousState;
 
     bool _inTransition = false;
+
+    public event Action<string> OnStateChange;
 
     public void ChangeState(State newState)
     {
@@ -41,6 +44,9 @@ public abstract class StateMachineMB : MonoBehaviour
             CurrentState.Enter();
 
         _inTransition = false;
+
+        // fire the state change event
+        OnStateChange?.Invoke(CurrentState.GetType().Name);
     }
 
     private void StoreStateAsPrevious(State newState)
