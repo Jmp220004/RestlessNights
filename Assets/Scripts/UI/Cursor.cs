@@ -15,6 +15,8 @@ public class Cursor : StateMachineMB
     public GameObject CursorArtObject;
     public Inventory Inventory;
     public ToggleCableButton cableButton;
+    public GameObject PowerlinePrefab;
+    public GameObject PowerSegmentPrefab;
 
     // State instances
     public CursorTowerState towerState;

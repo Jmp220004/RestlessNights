@@ -24,6 +24,7 @@ public class PowerLine : MonoBehaviour
 
         if(_powerSegments.Count == 0)
         {
+            segmentToAdd.CurrentLine = this;
             addSegmentToTile(segmentToAdd, tileToAddSegment, true);
             return 0;
         }
@@ -55,6 +56,7 @@ public class PowerLine : MonoBehaviour
 
             if(tileIsValid)
             {
+                segmentToAdd.CurrentLine = this;
                 addSegmentToTile(segmentToAdd, tileToAddSegment, true);
                 return 0;
             }
@@ -82,6 +84,7 @@ public class PowerLine : MonoBehaviour
 
             if (tileIsValid)
             {
+                segmentToAdd.CurrentLine = this;
                 addSegmentToTile(segmentToAdd, tileToAddSegment, false);
                 return 0;
             }
@@ -96,6 +99,7 @@ public class PowerLine : MonoBehaviour
 
         if (_powerSegments.Count == 0)
         {
+            segmentToAdd.CurrentLine = this;
             addSegmentToTile(segmentToAdd, tileToAddSegment, true);
             return 0;
         }
@@ -127,6 +131,7 @@ public class PowerLine : MonoBehaviour
 
                 if (tileIsValid)
                 {
+                    segmentToAdd.CurrentLine = this;
                     addSegmentToTile(segmentToAdd, tileToAddSegment, true);
                     return 0;
                 }
@@ -156,6 +161,7 @@ public class PowerLine : MonoBehaviour
 
                 if (tileIsValid)
                 {
+                    segmentToAdd.CurrentLine = this;
                     addSegmentToTile(segmentToAdd, tileToAddSegment, false);
                     return 0;
                 }
@@ -181,5 +187,28 @@ public class PowerLine : MonoBehaviour
         }
     }
 
+    public int clearLine()
+    {
+        int segmentsCleared = _powerSegments.Count;
+
+        for(int i = 0; i < _powerSegments.Count; i++)
+        {
+            _powerSegments[i].CurrentTile.clearPowerObject();
+        }
+
+        Destroy(gameObject);
+
+        return segmentsCleared;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        for(int i = 0; i < _powerSegments.Count - 1; i++)
+        {
+            Gizmos.DrawLine(_powerSegments[i].transform.position, _powerSegments[i+1].transform.position);
+        }
+    }
 
 }
