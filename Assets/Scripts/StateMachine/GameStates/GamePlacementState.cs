@@ -27,6 +27,7 @@ public class GamePlacementState : State
         }*/
 
         // Activate canva elems
+        _controller.UI.stateName.text = "Placement State";
     }
 
     public override void Update()

@@ -27,6 +27,8 @@ public class GameWaveState : State
         }*/
 
         // Activate canva elems
+        _controller.UI.stateName.text = "Wave State";
+        _controller.UI.pauseBtn.SetActive(true);
     }
 
     public override void Update()
@@ -37,6 +39,8 @@ public class GameWaveState : State
         // if(Input.GetMouseButtonDown(0)) {
         //     _stateMachine.ChangeState(_stateMachine.BuildState);
         // }
+
+        // update wave number
     }
 
     public override void Exit() {
