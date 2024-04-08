@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2320601118531529367}
   - component: {fileID: 6543698617088890734}
   - component: {fileID: 7424186828479576689}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2150153794131095060}
   - component: {fileID: 7821851228748217128}
   - component: {fileID: 975763269000790254}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7318813352972443654}
   - component: {fileID: 6886446777977080903}
   - component: {fileID: 2712211595800030321}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512820962168561712}
   - component: {fileID: 3403387536834253260}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TowerProxyGhostForTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 6571387950881929520}
   - component: {fileID: 8247083969824748949}
   - component: {fileID: 4600356267171582357}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 7361660256120311588}
   - component: {fileID: 5551591521545006539}
   - component: {fileID: 7724901974669504391}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7469271803303963588}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
