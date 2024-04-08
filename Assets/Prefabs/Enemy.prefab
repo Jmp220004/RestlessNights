@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e74a9f1c57ea849aced71c0b5bfbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 5
 --- !u!114 &7018022528361978113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,8 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcdf0f9f89597624f9fab6a0045b68fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
-  damage: 0
-  maxHP: 0
-  currentHP: 0
+  damage: 5
+  maxHP: 100
+  currentHP: 100
   dead: 0
