@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         speed = speed / 100;
+        
     }
 
     // Update is called once per frame
@@ -15,4 +16,6 @@ public class Enemy : MonoBehaviour
     {
         transform.position += new Vector3(-speed, 0, 0);
     }
+
+
 }

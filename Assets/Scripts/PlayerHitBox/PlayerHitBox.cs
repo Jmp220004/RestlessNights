@@ -22,10 +22,10 @@ public class PlayerHitBox : MonoBehaviour
         if (other.tag == "Enemy")
         {
             // Input player health code here
-            Destroy(other.gameObject);
-            Debug.Log("Lost Health");
+           // Debug.Log("Lost Health");
             health.TakeDamage(Enemy.GetComponent<Health>().damage);
-            Debug.Log(health.currentHP);
+           // Debug.Log(health.currentHP);
+            Destroy(other.gameObject);
 
         }
 

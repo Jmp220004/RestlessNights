@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  spawn: {fileID: 5918801140174900426, guid: 78b61fa3a4fd45946b6725678c6ba98c, type: 3}
 --- !u!114 &7018022528361978113
 MonoBehaviour:
   m_ObjectHideFlags: 0

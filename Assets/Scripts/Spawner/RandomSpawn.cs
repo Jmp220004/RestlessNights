@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RandomSpawn : MonoBehaviour
 {
     [Header("Dependencies")]
-    [SerializeField] private Transform _minSpawnLoc;
-    [SerializeField] private Transform _maxSpawnLoc;
+
+    private int _spawnLimit = 4;
+    public int enemies = 0;
+    GameObject clone; 
+
+    
 
     [Header("General")]
     public float SpawnCooldown = 2;
 
     [SerializeField] List<GameObject> _spawnList = new List<GameObject>();
+    [SerializeField] List<Transform> _spawnArea = new List<Transform>();
 
     private float _elapsedCooldown = 0;
+
+
 
     private void Update()
     {
@@ -21,40 +29,39 @@ public class RandomSpawn : MonoBehaviour
         if (_elapsedCooldown >= SpawnCooldown)
         {
             Spawn();
+            
             _elapsedCooldown = 0;
         }
     }
 
-    public static Vector3 GetRandomSpawnPositionFromLine
-        (Transform startLoc, Transform endLoc)
+    public static Transform GetRandomLocation(List<Transform> spawnArea)
     {
-        float randomXPos = UnityEngine.Random.Range
-            (startLoc.position.x, endLoc.position.x);
-        float randomYPos = UnityEngine.Random.Range
-            (startLoc.position.y, endLoc.position.y);
-        float randomZPos = UnityEngine.Random.Range
-            (startLoc.position.z, endLoc.position.z);
-
-        return new Vector3(randomXPos, randomYPos, randomZPos);
+        int randomIndex = UnityEngine.Random.Range(0, spawnArea.Count);
+        return spawnArea[randomIndex];
     }
 
+
+    // For Multiple enemy implementation
+    
     public static GameObject GetRandomSpawn(List<GameObject> spawnList)
     {
         int randomIndex = UnityEngine.Random.Range(0, spawnList.Count);
         return spawnList[randomIndex];
     }
-
+    
     public void Spawn()
     {
-        if (_minSpawnLoc == null || _maxSpawnLoc == null) { return; }
+        if (_spawnArea.Count == 0 || _spawnList == null) { return; }
         if (_spawnList.Count == 0 || _spawnList == null) { return; }
-
-        Vector3 randomSpawnPoint =
-            GetRandomSpawnPositionFromLine
-            (_minSpawnLoc, _maxSpawnLoc);
         GameObject randomSpawnObject = GetRandomSpawn(_spawnList);
-        Instantiate(randomSpawnObject, randomSpawnPoint, transform.rotation);
-
+        Transform randomSpawnArea = GetRandomLocation(_spawnArea);
+        if (enemies <= _spawnLimit)
+        {
+            clone = Instantiate(randomSpawnObject, randomSpawnArea.position, transform.rotation);
+            enemies++;
+        }
+        killed();
+        
         // make it harder, but not below a certain amount
         if (SpawnCooldown > .1f)
         {
@@ -65,13 +72,12 @@ public class RandomSpawn : MonoBehaviour
             SpawnCooldown = .1f;
         }
     }
-
-    private void OnDrawGizmos()
+    public void killed()
     {
-        if (_minSpawnLoc != null || _maxSpawnLoc != null)
+        if(clone == null)
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(_minSpawnLoc.position, _maxSpawnLoc.position);
+            Debug.Log("Dead");
+            enemies = 0;
         }
     }
 }
