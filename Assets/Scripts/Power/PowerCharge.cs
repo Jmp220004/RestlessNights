@@ -36,6 +36,13 @@ public class PowerCharge : MonoBehaviour
             ChargeLinePosition += ChargeDirection;
             onTileArrival();
         }
+
+
+        //Despawn the current charge if it gets too slow
+        if(_chargeSpeedCurrent <= 0.1)
+        {
+            onDespawn();
+        }
     }
 
     private void onTileArrival()

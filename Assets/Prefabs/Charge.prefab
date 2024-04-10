@@ -49,7 +49,7 @@ MonoBehaviour:
   ChargeLinePosition: 0
   ChargeSpeedStart: 2
   ChargeSpeedDecay: 0
-  ChargeDumpDecay: 0.2
+  ChargeDumpDecay: 0.1
   ChargeDirection: 0
   ChargeAmount: 1
 --- !u!1 &1092000840315890393
