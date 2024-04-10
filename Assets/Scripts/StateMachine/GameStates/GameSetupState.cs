@@ -19,6 +19,8 @@ public class GameSetupState : State
         Debug.Log("STATE: Game Setup");
 
         // Disables everything on the canvas
+        _controller.UI.waveStartObj.SetActive(false);
+        _controller.UI.pauseBtn.SetActive(false);
         // Iterate through all child GameObjects
         /*foreach (Transform child in _controller.UI.canvas.transform)
         {

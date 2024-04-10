@@ -19,6 +19,7 @@ public class GameLoseState : State
         Debug.Log("STATE: Game Setup");
 
         // Activate canva elems
+        _controller.UI.stateName.text = "Lose State";
     }
 
     public override void Update()
