@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2320601118531529367}
   - component: {fileID: 6543698617088890734}
   - component: {fileID: 7424186828479576689}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2150153794131095060}
   - component: {fileID: 7821851228748217128}
   - component: {fileID: 975763269000790254}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7318813352972443654}
   - component: {fileID: 6886446777977080903}
   - component: {fileID: 2712211595800030321}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,11 +261,7 @@ GameObject:
   - component: {fileID: 3403387536834253260}
   - component: {fileID: -2615167706218840623}
   - component: {fileID: 2489997557352959581}
-  - component: {fileID: 3709273835165123310}
-  - component: {fileID: 1177512137974461446}
-  - component: {fileID: -8591789799396668944}
-  - component: {fileID: 6599455806219875897}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: TowerProxyForTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,123 +335,6 @@ MonoBehaviour:
   _projectileSpeed: 0
   _shootVFX: {fileID: 0}
   _shootSound: {fileID: 0}
---- !u!114 &3709273835165123310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5292089970885441561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: b43c0b1bcb14fbf48a0e7e6c7a2ddc90,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2489997557352959581}
-        m_TargetAssemblyTypeName: BaseTower, Assembly-CSharp
-        m_MethodName: Shoot
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5951270d-dc52-4373-b29b-2afc18c96f4e
-    m_ActionName: Game/TouchPressed[/Device Simulator Touchscreen/press]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 107001d0-b733-4aaa-a819-98068a0e6dd5
-    m_ActionName: Game/TouchPosition[/Device Simulator Touchscreen/primaryTouch/position]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Game
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &1177512137974461446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5292089970885441561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc76c9fa952ec44798834037d76b91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 50
-  startingHealth: 50
-  maxHealth: 50
-  onDie:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6599455806219875897}
-        m_TargetAssemblyTypeName: Die, Assembly-CSharp
-        m_MethodName: KillObject
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  onHeal:
-    m_PersistentCalls:
-      m_Calls: []
-  damageResistance: 1
-  isInvincible: 0
---- !u!114 &-8591789799396668944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5292089970885441561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 610c54cf84fe4fc4098ef9566d67ae6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 50
---- !u!114 &6599455806219875897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5292089970885441561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8101a91ced92a934797443df2eb7e8a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _thisGameObject: {fileID: 5292089970885441561}
-  _deathParticles: {fileID: 0}
-  _deathSound: {fileID: 0}
 --- !u!1 &6274780955594417501
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +347,7 @@ GameObject:
   - component: {fileID: 6571387950881929520}
   - component: {fileID: 8247083969824748949}
   - component: {fileID: 4600356267171582357}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +444,7 @@ GameObject:
   - component: {fileID: 7361660256120311588}
   - component: {fileID: 5551591521545006539}
   - component: {fileID: 7724901974669504391}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7469271803303963588}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
