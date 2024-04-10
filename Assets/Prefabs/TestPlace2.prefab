@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6249246601993382102}
   - component: {fileID: 5752404928812601630}
   - component: {fileID: 2121362915678770206}
+  - component: {fileID: -6840069860273259309}
   m_Layer: 0
   m_Name: TestPlace2
   m_TagString: Untagged
@@ -97,3 +98,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentTile: {fileID: 0}
+--- !u!114 &-6840069860273259309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261050100736329192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b9ba6aa523577499ab5f40c316dc0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnTimerMax: 3
+  CanGenerate: 1
+  _placeable: {fileID: 2121362915678770206}
+  _chargeObject: {fileID: 1084284171243657973, guid: bd3d05280f5d27b4588af37d700ee4fc,
+    type: 3}

@@ -27,7 +27,7 @@ public abstract class BaseTower : MonoBehaviour
     void Update()
     {
         VerifyCharge();
-        //Shoot();
+        Shoot();
     }
 
     void VerifyCharge()
@@ -38,21 +38,22 @@ public abstract class BaseTower : MonoBehaviour
         }
     }
 
-    public virtual void Shoot(InputAction.CallbackContext context)    //instantiate the projectile in direction
+    public virtual void Shoot()    //instantiate the projectile in direction
     {
-        if(_isCharged == true || context.performed)
+        if(_isCharged == true)
         {
             PlayFX();
             GameObject bulletObj = Instantiate(_protectileToFire, _projectileSpawnPoint.transform.position,
     _projectileSpawnPoint.transform.rotation) as GameObject;
           
             //reduce current charge held by tower, by the ammount of charge it needs to fire
-            _currentCharge = _currentCharge - _chargeNeededToFire; 
+            _currentCharge = _currentCharge - _chargeNeededToFire;
+            _isCharged = false;
         }
-        else
+        /*else
         {
             Debug.Log("not enough charge to fire projectile");
-        }
+        }*/
     }
 
     void PlayFX()
@@ -71,5 +72,10 @@ public abstract class BaseTower : MonoBehaviour
                 transform.position, Quaternion.identity);
             Destroy(newSound.gameObject, newSound.clip.length);
         }
+    }
+
+    public void AddCharge(int chargeToAdd)
+    {
+        _currentCharge += chargeToAdd;
     }
 }

@@ -108,6 +108,11 @@ public class Tile : MonoBehaviour
         return _relativeTiles;
     }
 
+    public GameObject getPlacedObject()
+    {
+        return _placedObject;
+    }
+
     public GhostTile getGhostTile()
     {
         return _ghostTile;
