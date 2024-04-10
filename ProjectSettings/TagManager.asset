@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TouchInput
   - Selectable
+  - Enemy
   layers:
   - Default
   - TransparentFX
