@@ -13,6 +13,23 @@ public class Generator : MonoBehaviour
     [SerializeField] private Placeable _placeable;
     [SerializeField] private GameObject _chargeObject;
 
+    private GameFSM _gameFSM;
+
+    private void Awake()
+    {
+        _gameFSM = GameObject.FindGameObjectWithTag("GameFSM").GetComponent<GameFSM>();
+
+        if (_gameFSM != null)
+        {
+            _gameFSM.OnStateChange += OnGameStateChange;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _gameFSM.OnStateChange -= OnGameStateChange;
+    }
+
     private void FixedUpdate()
     {
         if(CanGenerate)
@@ -65,6 +82,25 @@ public class Generator : MonoBehaviour
         else
         {
             Debug.Log("Tower tried to spawn charge without PowerCharge script attached. Please add a charge to the prefab.");
+        }
+    }
+
+    public void OnGameStateChange(string newStateName)
+    {
+        Debug.Log(newStateName);
+        switch (newStateName)
+        {
+            case "GamePlacementState":
+                CanGenerate = false;
+                break;
+
+            case "GameLoseState":
+                CanGenerate = false;
+                break;
+
+            case "GameWaveState":
+                CanGenerate = true;
+                break;
         }
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2320601118531529367}
   - component: {fileID: 6543698617088890734}
   - component: {fileID: 7424186828479576689}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 2150153794131095060}
   - component: {fileID: 7821851228748217128}
   - component: {fileID: 975763269000790254}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7318813352972443654}
   - component: {fileID: 6886446777977080903}
   - component: {fileID: 2712211595800030321}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,10 @@ GameObject:
   - component: {fileID: 3403387536834253260}
   - component: {fileID: -2615167706218840623}
   - component: {fileID: 2489997557352959581}
-  m_Layer: 0
+  - component: {fileID: -3141570132179421812}
+  - component: {fileID: -4640680266102214929}
+  - component: {fileID: 6326680694502501553}
+  m_Layer: 13
   m_Name: TowerProxyForTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,6 +338,72 @@ MonoBehaviour:
   _projectileSpeed: 0
   _shootVFX: {fileID: 0}
   _shootSound: {fileID: 0}
+--- !u!114 &-3141570132179421812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292089970885441561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc76c9fa952ec44798834037d76b91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 50
+  startingHealth: 50
+  maxHealth: 50
+  onDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6326680694502501553}
+        m_TargetAssemblyTypeName: Die, Assembly-CSharp
+        m_MethodName: KillObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  damageResistance: 1
+  isInvincible: 0
+--- !u!114 &-4640680266102214929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292089970885441561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610c54cf84fe4fc4098ef9566d67ae6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 300
+--- !u!114 &6326680694502501553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292089970885441561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8101a91ced92a934797443df2eb7e8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _thisGameObject: {fileID: 5292089970885441561}
+  _deathParticles: {fileID: 0}
+  _deathSound: {fileID: 0}
 --- !u!1 &6274780955594417501
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +416,7 @@ GameObject:
   - component: {fileID: 6571387950881929520}
   - component: {fileID: 8247083969824748949}
   - component: {fileID: 4600356267171582357}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +513,7 @@ GameObject:
   - component: {fileID: 7361660256120311588}
   - component: {fileID: 5551591521545006539}
   - component: {fileID: 7724901974669504391}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7469271803303963588}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

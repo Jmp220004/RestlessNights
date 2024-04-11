@@ -16,7 +16,7 @@ public abstract class StateMachineMB : MonoBehaviour
         // ensure we're ready for a new state
         if (CurrentState == newState || _inTransition)
             return;
-
+       
         ChangeStateSequence(newState);
     }
 

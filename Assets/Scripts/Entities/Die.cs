@@ -8,11 +8,25 @@ public class Die : MonoBehaviour
     [SerializeField] private ParticleSystem _deathParticles;
     [SerializeField] private AudioSource _deathSound;
 
+    private RandomSpawn _randomSpawner;
 
+    private void Awake()
+    {
+        _randomSpawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<RandomSpawn>();
+    }
     public void KillObject()
     {
         PlayFX();
-        Destroy(_thisGameObject);
+        if (gameObject.CompareTag("Enemy"))
+        {
+            _randomSpawner.AddEnemyKilled(1);
+            Destroy(_thisGameObject);
+        }
+        else
+        {
+            Destroy(_thisGameObject);
+        }
+
     }
     void PlayFX()
     {

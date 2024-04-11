@@ -19,6 +19,9 @@ public class UIController : MonoBehaviour
     public GameObject waveStartObj;
     public TMP_Text waveNum;
 
+    [Header("Menus")]
+    public GameObject LoseMenu;
+
     private void Awake() {
         _stateMachine = GetComponentInParent<GameFSM>();
         gameController = GetComponentInParent<GameController>();

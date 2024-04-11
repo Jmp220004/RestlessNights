@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnTimerMax: 3
-  CanGenerate: 1
+  CanGenerate: 0
   _placeable: {fileID: 2121362915678770206}
   _chargeObject: {fileID: 1084284171243657973, guid: bd3d05280f5d27b4588af37d700ee4fc,
     type: 3}

@@ -15,7 +15,8 @@ public class GameLoseState : State
 
     public override void Enter() {
         base.Enter();
-
+        _controller.UI.LoseMenu.SetActive(true);
+        Time.timeScale = 0;
         Debug.Log("STATE: Game Setup");
 
         // Activate canva elems

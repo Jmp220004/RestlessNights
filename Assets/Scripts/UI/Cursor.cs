@@ -17,10 +17,12 @@ public class Cursor : StateMachineMB
     public ToggleCableButton cableButton;
     public GameObject PowerlinePrefab;
     public GameObject PowerSegmentPrefab;
+    public GameFSM FSM;
 
     // State instances
     public CursorTowerState towerState;
     public CursorCableState cableState;
+    public CursorWaveState waveState;
 
 
     //Set up C# events related to the touch manager
@@ -28,6 +30,7 @@ public class Cursor : StateMachineMB
     {
         towerState = new CursorTowerState();
         cableState = new CursorCableState(this);
+        waveState = new CursorWaveState();
 
         ChangeState(towerState);
 
@@ -36,6 +39,8 @@ public class Cursor : StateMachineMB
         Tim.releasedHover += onRelease;
         Tim.startUIHover += onStartUIHover;
         Tim.releasedUIHover += onReleaseUIHover;
+
+        FSM.OnStateChange += OnGameStateChange;
     }
 
     //Unsubscribe from the touch manager once the cursor object is destroyed
@@ -48,6 +53,8 @@ public class Cursor : StateMachineMB
         Tim.releasedHover -= onRelease;
         Tim.startUIHover -= onStartUIHover;
         Tim.releasedUIHover -= onReleaseUIHover;
+
+        FSM.OnStateChange -= OnGameStateChange;
     }
 
     private void Start()
@@ -155,5 +162,19 @@ public class Cursor : StateMachineMB
     {
         CursorArtObject.SetActive(true);
         CursorImage.sprite = newSprite;
+    }
+
+    public void OnGameStateChange(string newStateName)
+    {
+        switch (newStateName)
+        {
+            case "GamePlacementState":
+                ChangeState(towerState);
+                break;
+
+            case "GameWaveState":
+                ChangeState(waveState);
+                break;
+        }
     }
 }

@@ -29,12 +29,13 @@ public class GameSetupState : State
         }*/
 
         // Activate canva elems
+
     }
 
     public override void Update()
     {
         base.Update();
-
+        _stateMachine.ChangeState(_stateMachine.PlacementState);
         // //check for tap input
         // if(Input.GetMouseButtonDown(0)) {
         //     _stateMachine.ChangeState(_stateMachine.BuildState);

@@ -27,8 +27,8 @@ public class GameWaveState : State
         }*/
 
         // Activate canva elems
+        _controller.UI.waveStartObj.SetActive(false);
         _controller.UI.stateName.text = "Wave State";
-        _controller.UI.pauseBtn.SetActive(true);
     }
 
     public override void Update()

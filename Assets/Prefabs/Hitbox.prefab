@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 7657994344294070615}
   - component: {fileID: 7657994344294070614}
   - component: {fileID: 7657994344294070613}
-  - component: {fileID: 7657994344294070609}
   - component: {fileID: 7657994344294070610}
-  - component: {fileID: -1773122165570702878}
-  m_Layer: 0
+  - component: {fileID: 6857291720013161309}
+  - component: {fileID: 8342251675223264778}
+  - component: {fileID: 2848064327817458162}
+  m_Layer: 13
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,20 +101,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7657994344294070609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7657994344294070612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d2106ba5cd0c624bb440140de62e947, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Enemy: {fileID: 1338998593877459487, guid: c5240ced8f5f4f840b7a8011fcf9a816, type: 3}
-  health: {fileID: -1773122165570702878}
 --- !u!54 &7657994344294070610
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -130,7 +117,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-1773122165570702878
+--- !u!114 &6857291720013161309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,10 +126,71 @@ MonoBehaviour:
   m_GameObject: {fileID: 7657994344294070612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcdf0f9f89597624f9fab6a0045b68fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 4cc76c9fa952ec44798834037d76b91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  maxHP: 100
-  currentHP: 100
-  dead: 0
+  currentHealth: 1
+  startingHealth: 1
+  maxHealth: 1
+  onDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8342251675223264778}
+        m_TargetAssemblyTypeName: Die, Assembly-CSharp
+        m_MethodName: KillObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2848064327817458162}
+        m_TargetAssemblyTypeName: LoseZone, Assembly-CSharp
+        m_MethodName: LoseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  damageResistance: 1
+  isInvincible: 0
+--- !u!114 &8342251675223264778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657994344294070612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8101a91ced92a934797443df2eb7e8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _thisGameObject: {fileID: 7657994344294070612}
+  _deathParticles: {fileID: 0}
+  _deathSound: {fileID: 0}
+--- !u!114 &2848064327817458162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657994344294070612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a52f1804d7c3ad4192a03191c25acdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

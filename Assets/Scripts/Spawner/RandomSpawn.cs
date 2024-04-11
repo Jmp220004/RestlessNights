@@ -7,11 +7,12 @@ public class RandomSpawn : MonoBehaviour
 {
     [Header("Dependencies")]
 
-    private int _spawnLimit = 4;
+    public int _spawnLimit = 4;
     public int enemies = 0;
-    GameObject clone; 
+    public int EnemiesKilled;
+    GameObject clone;
 
-    
+    public bool CanSpawn;
 
     [Header("General")]
     public float SpawnCooldown = 2;
@@ -21,12 +22,35 @@ public class RandomSpawn : MonoBehaviour
 
     private float _elapsedCooldown = 0;
 
+    private GameFSM _gameFSM;
 
-
-    private void Update()
+    private void Awake()
     {
+        EnemiesKilled = 0;
+
+        _gameFSM = GameObject.FindGameObjectWithTag("GameFSM").GetComponent<GameFSM>();
+
+        if (_gameFSM != null)
+        {
+            _gameFSM.OnStateChange += OnGameStateChange;
+        }
+
+    }
+
+    private void OnDestroy()
+    {
+        _gameFSM.OnStateChange -= OnGameStateChange;
+    }
+
+    private void FixedUpdate()
+    {
+        if (EnemiesKilled >= _spawnLimit)
+        {
+            EndWave();
+        }
+
         _elapsedCooldown += Time.deltaTime;
-        if (_elapsedCooldown >= SpawnCooldown)
+        if (_elapsedCooldown >= SpawnCooldown && CanSpawn == true)
         {
             Spawn();
             
@@ -55,7 +79,7 @@ public class RandomSpawn : MonoBehaviour
         if (_spawnList.Count == 0 || _spawnList == null) { return; }
         GameObject randomSpawnObject = GetRandomSpawn(_spawnList);
         Transform randomSpawnArea = GetRandomLocation(_spawnArea);
-        if (enemies <= _spawnLimit)
+        if (enemies < _spawnLimit)
         {
             clone = Instantiate(randomSpawnObject, randomSpawnArea.position, transform.rotation);
             enemies++;
@@ -76,8 +100,34 @@ public class RandomSpawn : MonoBehaviour
     {
         if(clone == null)
         {
-            Debug.Log("Dead");
+           // Debug.Log("Dead");
             enemies = 0;
+        }
+    }
+
+    public void EndWave()
+    {
+        Debug.Log("changing to placement state");
+        _gameFSM.ChangeState(_gameFSM.PlacementState);
+    }
+
+    public void AddEnemyKilled(int number)
+    {
+        EnemiesKilled += number;
+    }
+    public void OnGameStateChange(string newStateName)
+    {
+        Debug.Log(newStateName);
+        switch (newStateName)
+        {
+            case "GamePlacementState":
+                CanSpawn = false;
+                EnemiesKilled = 0;
+                break;
+
+            case "GameWaveState":
+                CanSpawn = true;
+                break;
         }
     }
 }
