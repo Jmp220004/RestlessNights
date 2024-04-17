@@ -12,7 +12,6 @@ public class RandomSpawn : MonoBehaviour
     public int enemies = 0;
     public int EnemiesKilled;
     GameObject clone;
-    GameObject laneClone;
 
     public bool CanSpawn;
 
@@ -29,6 +28,7 @@ public class RandomSpawn : MonoBehaviour
 
     private Transform spawn;
     private GameObject enemy;
+    private Transform spawnLoc;
 
 
     private void Start()
@@ -123,11 +123,20 @@ public class RandomSpawn : MonoBehaviour
         }
     }
 
+    public void DisableRow()
+    {
+        GameObject[] rows = GameObject.FindGameObjectsWithTag("SpawnLoc");
+        int randomSpawn = UnityEngine.Random.Range(0, rows.Length);
+        spawnLoc = _spawnArea[randomSpawn];
+        _spawnArea.RemoveAt(randomSpawn);
+    }
+
     IEnumerator RowFlash()
     {
+        DisableRow();
         for (int i = 0; i < _spawnArea.Count; i++)
         {
-            laneClone = Instantiate(_flashRow, _spawnArea[i].position, transform.rotation);
+            Instantiate(_flashRow, _spawnArea[i].position, transform.rotation);
         }
         yield return new WaitForSeconds(5f);
         GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Warning");
@@ -142,6 +151,7 @@ public class RandomSpawn : MonoBehaviour
     {
         Debug.Log("changing to placement state");
         _gameFSM.ChangeState(_gameFSM.PlacementState);
+        _spawnArea.Add(spawnLoc);
         StartCoroutine(RowFlash());
         
     }
