@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - GameFSM
   - Spawner
+  - Warning
   layers:
   - Default
   - TransparentFX

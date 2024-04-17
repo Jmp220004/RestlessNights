@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class RandomSpawn : MonoBehaviour
@@ -11,18 +12,29 @@ public class RandomSpawn : MonoBehaviour
     public int enemies = 0;
     public int EnemiesKilled;
     GameObject clone;
+    GameObject laneClone;
 
     public bool CanSpawn;
 
     [Header("General")]
     public float SpawnCooldown = 2;
 
+    [SerializeField] GameObject _flashRow;
     [SerializeField] List<GameObject> _spawnList = new List<GameObject>();
     [SerializeField] List<Transform> _spawnArea = new List<Transform>();
 
     private float _elapsedCooldown = 0;
 
     private GameFSM _gameFSM;
+
+    private Transform spawn;
+    private GameObject enemy;
+
+
+    private void Start()
+    {
+        StartCoroutine(RowFlash());
+    }
 
     private void Awake()
     {
@@ -52,17 +64,20 @@ public class RandomSpawn : MonoBehaviour
         _elapsedCooldown += Time.deltaTime;
         if (_elapsedCooldown >= SpawnCooldown && CanSpawn == true)
         {
+
             Spawn();
             
             _elapsedCooldown = 0;
         }
     }
 
+    // Spawn Location
     public static Transform GetRandomLocation(List<Transform> spawnArea)
     {
         int randomIndex = UnityEngine.Random.Range(0, spawnArea.Count);
         return spawnArea[randomIndex];
     }
+
 
 
     // For Multiple enemy implementation
@@ -72,19 +87,22 @@ public class RandomSpawn : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, spawnList.Count);
         return spawnList[randomIndex];
     }
+
+
     
     public void Spawn()
     {
-        if (_spawnArea.Count == 0 || _spawnList == null) { return; }
         if (_spawnList.Count == 0 || _spawnList == null) { return; }
-        GameObject randomSpawnObject = GetRandomSpawn(_spawnList);
-        Transform randomSpawnArea = GetRandomLocation(_spawnArea);
+        if (_spawnArea.Count == 0 || _spawnList == null) { return; }
+        spawn = GetRandomLocation(_spawnArea);
+        enemy = GetRandomSpawn(_spawnList);
         if (enemies < _spawnLimit)
         {
-            clone = Instantiate(randomSpawnObject, randomSpawnArea.position, transform.rotation);
+            clone = Instantiate(enemy, spawn.position, transform.rotation);
             enemies++;
         }
         killed();
+        
         
         // make it harder, but not below a certain amount
         if (SpawnCooldown > .1f)
@@ -105,10 +123,27 @@ public class RandomSpawn : MonoBehaviour
         }
     }
 
+    IEnumerator RowFlash()
+    {
+        for (int i = 0; i < _spawnArea.Count; i++)
+        {
+            laneClone = Instantiate(_flashRow, _spawnArea[i].position, transform.rotation);
+        }
+        yield return new WaitForSeconds(5f);
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Warning");
+        foreach (GameObject obj in allObjects)
+        {
+            Destroy(obj);
+        }
+
+    }
+
     public void EndWave()
     {
         Debug.Log("changing to placement state");
         _gameFSM.ChangeState(_gameFSM.PlacementState);
+        StartCoroutine(RowFlash());
+        
     }
 
     public void AddEnemyKilled(int number)
