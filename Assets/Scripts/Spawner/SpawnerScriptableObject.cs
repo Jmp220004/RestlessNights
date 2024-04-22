@@ -7,6 +7,8 @@ public class SpawnerScriptableObject : ScriptableObject
 {
     public string spawner;
 
-    public int numberOfSpawnsToCreate;
+    public GameObject warning;
+
+    public int numberOfSpawnsLocations;
     public Vector3[] spawnPoints;
 }

@@ -4466,6 +4466,10 @@ MonoBehaviour:
   enemyToSpawn: {fileID: 1338998593877459487, guid: c5240ced8f5f4f840b7a8011fcf9a816,
     type: 3}
   spawnerValues: {fileID: 11400000, guid: 7ff7e640d985a9d49b3546872a622431, type: 2}
+  spawnLimit: 12
+  SpawnCooldown: 2
+  EnemiesKilled: 0
+  CanSpawn: 0
 --- !u!1001 &804869384
 PrefabInstance:
   m_ObjectHideFlags: 0
