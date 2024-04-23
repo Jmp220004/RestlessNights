@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 
 public abstract class BaseTower : MonoBehaviour
 {
-    [SerializeField] private int _chargeNeededToFire = 1;
-    private int _currentCharge;
+    [SerializeField] private float _chargeNeededToFire = 1;
+    private float _currentCharge;
     private bool _isCharged = false;
 
     [Header("")]
@@ -17,6 +17,7 @@ public abstract class BaseTower : MonoBehaviour
     [Header ("TowerFX")]
     [SerializeField] private ParticleSystem _shootVFX;
     [SerializeField] private AudioSource _shootSound;
+    [SerializeField] private ChargeBar _cb;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,7 @@ public abstract class BaseTower : MonoBehaviour
             //reduce current charge held by tower, by the ammount of charge it needs to fire
             _currentCharge = _currentCharge - _chargeNeededToFire;
             _isCharged = false;
+            _cb.updateChargeDelayed(_currentCharge, _chargeNeededToFire, 1f);
         }
         /*else
         {
@@ -74,8 +76,11 @@ public abstract class BaseTower : MonoBehaviour
         }
     }
 
-    public void AddCharge(int chargeToAdd)
+    public virtual void AddCharge(float chargeToAdd)
     {
         _currentCharge += chargeToAdd;
+        _cb.updateCharge(_currentCharge, _chargeNeededToFire);
     }
+
+
 }

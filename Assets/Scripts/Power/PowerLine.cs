@@ -8,6 +8,15 @@ public enum lineEnd
     end
 }
 
+public enum direction
+{
+    up,
+    down,
+    left,
+    right,
+    none
+}
+
 public class PowerLine : MonoBehaviour
 {
     public List<PowerSegment> _powerSegments;
@@ -18,14 +27,15 @@ public class PowerLine : MonoBehaviour
     /// <param name="segmentToAdd">The segment being added to the tile</param>
     /// <param name="tileToAddSegment">The tile the segment is being placed on</param>
     /// <returns>Returns -1 if the argument tile is a valid addition to the list. Otherwise returns 0</returns>
-    public int attemptAddSegment(PowerSegment segmentToAdd,Tile tileToAddSegment)
+    public int attemptAddSegment(PowerSegment segmentToAdd, Tile tileToAddSegment)
     {
-        
 
-        if(_powerSegments.Count == 0)
+
+        if (_powerSegments.Count == 0)
         {
             segmentToAdd.CurrentLine = this;
             addSegmentToTile(segmentToAdd, tileToAddSegment, true);
+            updateAllSegmentGraphics();
             return 0;
         }
         else
@@ -34,7 +44,7 @@ public class PowerLine : MonoBehaviour
             /*EXPECTED BUG: It's likely that the current implementation of this system will make it impossible to order the line in the exact way you want if both the beginning and end tile are adjacent to the target tile. 
              Figuring out exactly how to fix this to feel intuitive will be difficult until we have all the systems working properly, however, so we'll cross that bridge when we get to it -T*/
 
-            Tile endTile = _powerSegments[_powerSegments.Count-1].CurrentTile; //The tile at the current end of the power line
+            Tile endTile = _powerSegments[_powerSegments.Count - 1].CurrentTile; //The tile at the current end of the power line
 
             RelativeTiles endRelativeTiles = endTile.getRelativeTiles();
             List<Tile> validTiles = new List<Tile>();
@@ -48,16 +58,17 @@ public class PowerLine : MonoBehaviour
 
             foreach (Tile tile in validTiles)
             {
-                if(tile == tileToAddSegment)
+                if (tile == tileToAddSegment)
                 {
                     tileIsValid = true;
                 }
             }
 
-            if(tileIsValid)
+            if (tileIsValid)
             {
                 segmentToAdd.CurrentLine = this;
                 addSegmentToTile(segmentToAdd, tileToAddSegment, true);
+                updateAllSegmentGraphics();
                 return 0;
             }
 
@@ -86,6 +97,7 @@ public class PowerLine : MonoBehaviour
             {
                 segmentToAdd.CurrentLine = this;
                 addSegmentToTile(segmentToAdd, tileToAddSegment, false);
+                updateAllSegmentGraphics();
                 return 0;
             }
         }
@@ -101,13 +113,14 @@ public class PowerLine : MonoBehaviour
         {
             segmentToAdd.CurrentLine = this;
             addSegmentToTile(segmentToAdd, tileToAddSegment, true);
+            updateAllSegmentGraphics();
             return 0;
         }
         else
         {
             //Create a list of valid tiles by finding the tiles directly adjacent by 1 tile in the X and Y directions. Then, check if the tileToAdd is a valid tile to add to the power line. 
 
-            if(lineEnd == lineEnd.end)
+            if (lineEnd == lineEnd.end)
             {
                 Tile endTile = _powerSegments[_powerSegments.Count - 1].CurrentTile; //The tile at the current end of the power line
 
@@ -133,10 +146,11 @@ public class PowerLine : MonoBehaviour
                 {
                     segmentToAdd.CurrentLine = this;
                     addSegmentToTile(segmentToAdd, tileToAddSegment, true);
+                    updateAllSegmentGraphics();
                     return 0;
                 }
             }
-            else if(lineEnd == lineEnd.beginning)
+            else if (lineEnd == lineEnd.beginning)
             {
                 //Do the same thing, but check if the tile is valid for the beginning of the line.
                 Tile startTile = _powerSegments[0].CurrentTile; //The tile at the beginning of the power line
@@ -163,6 +177,7 @@ public class PowerLine : MonoBehaviour
                 {
                     segmentToAdd.CurrentLine = this;
                     addSegmentToTile(segmentToAdd, tileToAddSegment, false);
+                    updateAllSegmentGraphics();
                     return 0;
                 }
             }
@@ -174,7 +189,7 @@ public class PowerLine : MonoBehaviour
 
     private void addSegmentToTile(PowerSegment segmentToAdd, Tile tileToAddSegment, bool insertEnd)
     {
-        switch(insertEnd)
+        switch (insertEnd)
         {
             case true:
                 _powerSegments.Add(segmentToAdd);
@@ -191,7 +206,7 @@ public class PowerLine : MonoBehaviour
     {
         int segmentsCleared = _powerSegments.Count;
 
-        for(int i = 0; i < _powerSegments.Count; i++)
+        for (int i = 0; i < _powerSegments.Count; i++)
         {
             _powerSegments[i].CurrentTile.clearPowerObject();
         }
@@ -199,6 +214,73 @@ public class PowerLine : MonoBehaviour
         Destroy(gameObject);
 
         return segmentsCleared;
+    }
+
+    public direction getPreviousTileRelativePosition(int checkPosition)
+    {
+        if(checkPosition <= 0 || checkPosition > _powerSegments.Count-1)
+        {
+            return direction.none;
+        }
+
+        PowerSegment relSegment = _powerSegments[checkPosition - 1];
+        Tile checkTile = _powerSegments[checkPosition].CurrentTile;
+        Tile relTile = relSegment.CurrentTile;
+
+        return getRelativePositionToTile(checkTile, relTile);
+    }
+
+    public direction getNextTileRelativePosition(int checkPosition)
+    {
+        if (checkPosition < 0 || checkPosition >= _powerSegments.Count - 1)
+        {
+            return direction.none;
+        }
+
+        PowerSegment relSegment = _powerSegments[checkPosition + 1];
+        Tile checkTile = _powerSegments[checkPosition].CurrentTile;
+        Tile relTile = relSegment.CurrentTile;
+
+        return getRelativePositionToTile(checkTile, relTile);
+    }
+
+    private direction getRelativePositionToTile(Tile checkTile, Tile relTile)
+    {
+        RelativeTiles checkTileRelatives = checkTile.getRelativeTiles();
+
+        Tile TopTile = checkTileRelatives.getRelativeTileCoords(0, 1);
+        if(TopTile == relTile)
+        {
+            return direction.up;
+        }
+
+        Tile RightTile = checkTileRelatives.getRelativeTileCoords(1, 0);
+        if(RightTile == relTile)
+        {
+            return direction.right;
+        }
+
+        Tile BottomTile = checkTileRelatives.getRelativeTileCoords(0, -1);
+        if(BottomTile == relTile)
+        {
+            return direction.down;
+        }
+
+        Tile LeftTile = checkTileRelatives.getRelativeTileCoords(-1, 0);
+        if(LeftTile == relTile)
+        {
+            return direction.left;
+        }
+
+        return direction.none;
+    }
+
+    private void updateAllSegmentGraphics()
+    {
+        for(int i = 0; i < _powerSegments.Count; i++)
+        {
+            _powerSegments[i].updateSegmentGraphics(i);
+        }
     }
 
     private void OnDrawGizmos()
