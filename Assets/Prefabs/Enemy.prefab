@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e74a9f1c57ea849aced71c0b5bfbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 1
 --- !u!114 &2085577734180421010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,9 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc76c9fa952ec44798834037d76b91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 50
-  startingHealth: 50
-  maxHealth: 50
+  currentHealth: 100
+  startingHealth: 100
+  maxHealth: 100
   onDie:
     m_PersistentCalls:
       m_Calls:

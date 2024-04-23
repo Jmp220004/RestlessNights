@@ -99,6 +99,7 @@ public class Generator : MonoBehaviour
                 break;
 
             case "GameWaveState":
+                spawnCharge();
                 CanGenerate = true;
                 break;
         }

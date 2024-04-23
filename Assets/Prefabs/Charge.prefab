@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChargeLine: {fileID: 0}
   ChargeLinePosition: 0
-  ChargeSpeedStart: 2
+  ChargeSpeedStart: 0.5
   ChargeDecay: 0.75
   ChargeSizeDecay: 0.1
   ChargeDirection: 0
