@@ -6,26 +6,22 @@ public class Spawner : MonoBehaviour
 {
     public GameObject enemyToSpawn;
 
-    public SpawnerScriptableObject spawnerValues;
-
-    int instanceNum = 1;
+    public WaveScriptableObject CurrentWave;
 
     private float _elapsedCooldown = 0;
 
     private GameFSM _gameFSM;
-    public int spawnLimit = 4;
-    public float SpawnCooldown = 2;
-    public int EnemiesKilled;
+
+    public int EnemiesSpawnedWave;
+    public int EnemiesKilledWave;
+    public List<Transform> spawnLocations;
+    public List<bool> EnabledSpawners = new List<bool> { false, false, false, false, false };
+    [SerializeField] private List<GameObject> _warningIndicators;
     public bool CanSpawn;
 
-
-    private void Start()
-    {
-        RowFlashStart();
-    }
     private void Awake()
     {
-        EnemiesKilled = 0;
+        EnemiesKilledWave = 0;
 
         _gameFSM = GameObject.FindGameObjectWithTag("GameFSM").GetComponent<GameFSM>();
 
@@ -43,82 +39,145 @@ public class Spawner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (EnemiesKilled >= instanceNum)
+        if(CanSpawn)
         {
-            EndWave();
+            if (EnemiesKilledWave >= CurrentWave.TotalEnemies)
+            {
+                EndWave();
+            }
+            else
+            {
+                _elapsedCooldown += Time.fixedDeltaTime;
+                if(_elapsedCooldown >= CurrentWave.EnemySpawnCooldown)
+                {
+                    SpawnEnemies();
+                    _elapsedCooldown = 0;
+                }
+            }
         }
-        _elapsedCooldown += Time.deltaTime;
-        if (_elapsedCooldown >= SpawnCooldown && CanSpawn == true && instanceNum<spawnLimit)
+    }
+
+    private int pickRandomSpawnLane(List<int> excludeIndeces)
+    {
+        List<int> enabledSpawnersIndices = new List<int>();
+        //Check which indexes are enabled
+        for (int i = 0; i < 5; i++)
         {
+            if (EnabledSpawners[i] == true && excludeIndeces.Contains(i) != true)
+            {
+                enabledSpawnersIndices.Add(i);
+            }
+        }
 
-            SpawnEntities();
+        if (enabledSpawnersIndices.Count == 0)
+        {
+            return -1;
+        }
 
-            _elapsedCooldown = 0;
+        //Pick a random index from the available spawns
+        int randomIndex = Random.Range(0, enabledSpawnersIndices.Count);
+
+        return enabledSpawnersIndices[randomIndex];
+    }
+
+    private void SpawnEnemies()
+    {
+        List<int> usedSpawners = new List<int>();
+        int numberOfEnemiesToSpawn = Random.Range(1, CurrentWave.MaximumSimultaneousSpawn + 1);
+
+        for(int i = 0; i < numberOfEnemiesToSpawn; i++)
+        {
+            int pickedLane = pickRandomSpawnLane(usedSpawners);
+
+            if(pickedLane != -1 && EnemiesSpawnedWave < CurrentWave.TotalEnemies && usedSpawners.Contains(pickedLane) == false)
+            {
+                Vector3 laneTransformPosition = spawnLocations[pickedLane].position;
+                Instantiate(enemyToSpawn, laneTransformPosition, Quaternion.identity);
+
+                usedSpawners.Add(pickedLane);
+                EnemiesSpawnedWave++;
+            }
         }
 
     }
 
-        void SpawnEntities()
+    private void getWaveEnabledLanes()
     {
-        int currentSpawnPointIndex = 0;
-
-        for (int i = 0; i < spawnerValues.numberOfSpawnsLocations; i++)
+        if(CurrentWave.RandomizeSpawnPoints == false)
         {
-            GameObject currentEnemy = Instantiate(enemyToSpawn, 
-                spawnerValues.spawnPoints[currentSpawnPointIndex], Quaternion.identity);
-            
-            currentEnemy.name = spawnerValues.spawner + instanceNum;
+            EnabledSpawners = CurrentWave.EnabledSpawnPoints;
+        }
+        else
+        {
+            //Reset the enabled spawners list
+            EnabledSpawners = new List<bool> { false, false, false, false, false };
 
-            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnerValues.spawnPoints.Length;
-
-            instanceNum++;
+            //Enable random indeces based on how many are meant to be added
+            int totalLanes = 0;
+            List<int> excludeIndices = new List<int>();
+            while (totalLanes < CurrentWave.TotalRandomSpawns)
+            {
+                int randomLane = Random.Range(0, 5);
+                if(excludeIndices.Contains(randomLane) == false)
+                {
+                    EnabledSpawners[randomLane] = true;
+                    excludeIndices.Add(randomLane);
+                    totalLanes++;
+                }
+            }
         }
     }
 
-    private void RowFlashStart()
+    private void RowWarningStart()
     {
-        int currentSpawnPointIndex = 0;
-
-        for (int i = 0; i < spawnerValues.numberOfSpawnsLocations; i++)
+        for(int i = 0; i < 5; i++)
         {
-            Instantiate(spawnerValues.warning, spawnerValues.spawnPoints[currentSpawnPointIndex], transform.rotation);
-            currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnerValues.spawnPoints.Length;
+            if(EnabledSpawners[i] == true)
+            {
+                _warningIndicators[i].SetActive(true);
+            }
+            else
+            {
+                _warningIndicators[i].SetActive(false);
+            }
         }
     }
 
-    private void RowFlashEnd()
+    private void RowWarningEnd()
     {
-        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Warning");
-        foreach (GameObject obj in allObjects)
+        for (int i = 0; i < 5; i++)
         {
-            Destroy(obj);
+            _warningIndicators[i].SetActive(false);
         }
     }
 
     public void EndWave()
     {
-        Debug.Log("changing to placement state");
+        Debug.Log("Changing to placement state");
         _gameFSM.ChangeState(_gameFSM.PlacementState);
     }
 
     public void AddEnemyKilled(int number)
     {
-        EnemiesKilled += number;
+        EnemiesKilledWave += number;
     }
     public void OnGameStateChange(string newStateName)
     {
-        Debug.Log(newStateName);
         switch (newStateName)
         {
             case "GamePlacementState":
                 CanSpawn = false;
-                EnemiesKilled = 0;
-                RowFlashStart();
+                EnemiesSpawnedWave = 0;
+                EnemiesKilledWave = 0;
+                CurrentWave = _gameFSM.getCurrentWaveData();
+                getWaveEnabledLanes();
+                RowWarningStart();
                 break;
 
             case "GameWaveState":
                 CanSpawn = true;
-                RowFlashEnd();
+                _elapsedCooldown = 0;
+                RowWarningEnd();
                 break;
         }
     }

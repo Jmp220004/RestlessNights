@@ -62,11 +62,14 @@ public class Generator : MonoBehaviour
     {
         //Spawn 2 charge objects meant to go both directions on the power line
 
-        GameObject newCharge1 = Instantiate(_chargeObject, gameObject.transform.position, Quaternion.identity);
-        GameObject newCharge2 = Instantiate(_chargeObject, gameObject.transform.position, Quaternion.identity);
+        if (_placeable.CurrentTile.getPowerSegment() != null)
+        {
+            GameObject newCharge1 = Instantiate(_chargeObject, gameObject.transform.position, Quaternion.identity);
+            GameObject newCharge2 = Instantiate(_chargeObject, gameObject.transform.position, Quaternion.identity);
 
-        setupChargeObject(newCharge1, 1);
-        setupChargeObject(newCharge2, -1);
+            setupChargeObject(newCharge1, 1);
+            setupChargeObject(newCharge2, -1);
+        }
     }
 
     private void setupChargeObject(GameObject charge, int direction)

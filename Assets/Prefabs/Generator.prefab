@@ -11,7 +11,11 @@ GameObject:
   - component: {fileID: 4289872694338261098}
   - component: {fileID: 2121362915678770206}
   - component: {fileID: -6840069860273259309}
-  m_Layer: 0
+  - component: {fileID: -6207180330654737101}
+  - component: {fileID: 6119385057310903517}
+  - component: {fileID: 4027164567681244808}
+  - component: {fileID: 8842939298284580968}
+  m_Layer: 13
   m_Name: Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,6 +68,89 @@ MonoBehaviour:
   _placeable: {fileID: 2121362915678770206}
   _chargeObject: {fileID: 1084284171243657973, guid: bd3d05280f5d27b4588af37d700ee4fc,
     type: 3}
+--- !u!114 &-6207180330654737101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261050100736329192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc76c9fa952ec44798834037d76b91e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 50
+  startingHealth: 50
+  maxHealth: 50
+  onCreate:
+    m_PersistentCalls:
+      m_Calls: []
+  onDie:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4027164567681244808}
+        m_TargetAssemblyTypeName: Die, Assembly-CSharp
+        m_MethodName: KillObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onHeal:
+    m_PersistentCalls:
+      m_Calls: []
+  damageResistance: 1
+  isInvincible: 0
+--- !u!114 &6119385057310903517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261050100736329192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 610c54cf84fe4fc4098ef9566d67ae6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 300
+--- !u!114 &4027164567681244808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261050100736329192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8101a91ced92a934797443df2eb7e8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _thisGameObject: {fileID: 6261050100736329192}
+  _deathParticles: {fileID: 0}
+  _deathSound: {fileID: 0}
+--- !u!136 &8842939298284580968
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261050100736329192}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.21
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.31, z: 0}
 --- !u!1001 &6116043878768153082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -141,10 +228,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 635547659545568360, guid: d5c03e5e018e6084991c05c8a9e33593,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d5c03e5e018e6084991c05c8a9e33593,
         type: 3}
       propertyPath: m_Name
       value: PowerGenModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d5c03e5e018e6084991c05c8a9e33593,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953606483559150473, guid: d5c03e5e018e6084991c05c8a9e33593,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5c03e5e018e6084991c05c8a9e33593, type: 3}

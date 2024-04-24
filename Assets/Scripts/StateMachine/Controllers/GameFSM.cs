@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(GameController))]
 public class GameFSM : StateMachineMB
 {
+    public List<WaveScriptableObject> WaveData;
+    public int WaveNumber;
+
     private GameController _controller;
     
     // state instances
@@ -29,5 +32,10 @@ public class GameFSM : StateMachineMB
 
     private void Start() {
         ChangeState(SetupState);
+    }
+
+    public WaveScriptableObject getCurrentWaveData()
+    {
+        return WaveData[WaveNumber-1];
     }
 }

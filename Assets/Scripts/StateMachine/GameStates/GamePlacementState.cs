@@ -6,7 +6,6 @@ public class GamePlacementState : State
 {
     private GameFSM _stateMachine;
     private GameController _controller;
-    private int _waveNumber = 0;
 
     public GamePlacementState(GameFSM stateMachine, GameController controller)
     {
@@ -19,7 +18,7 @@ public class GamePlacementState : State
 
         Debug.Log("STATE: Game Placement");
 
-        _waveNumber++;
+        _stateMachine.WaveNumber++;
 
         _controller.UI.waveStartObj.SetActive(true);
         _controller.UI.pauseBtn.SetActive(true);
@@ -33,7 +32,7 @@ public class GamePlacementState : State
 
         // Activate canva elems
         _controller.UI.stateName.text = "Placement State";
-        _controller.UI.waveNum.text = "Wave #: " + _waveNumber;
+        _controller.UI.waveNum.text = "Wave #: " + _stateMachine.WaveNumber;
     }
 
     public override void Update()

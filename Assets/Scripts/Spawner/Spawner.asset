@@ -16,8 +16,8 @@ MonoBehaviour:
   warning: {fileID: 5076220464029429239, guid: 009e54e0dc03a0e41a005ad967a511d5, type: 3}
   numberOfSpawnsLocations: 5
   spawnPoints:
-  - {x: 7.5, y: 0.5, z: -2.47}
-  - {x: 7.5, y: 0.5, z: -1.21}
+  - {x: 7.5, y: 0.5, z: -2.5}
+  - {x: 7.5, y: 0.5, z: -1.25}
   - {x: 7.5, y: 0.5, z: 0}
-  - {x: 7.5, y: 0.5, z: 1.158}
-  - {x: 7.5, y: 0.5, z: 2.46}
+  - {x: 7.5, y: 0.5, z: 1.25}
+  - {x: 7.5, y: 0.5, z: 2.5}

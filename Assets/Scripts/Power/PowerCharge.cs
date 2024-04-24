@@ -81,6 +81,11 @@ public class PowerCharge : MonoBehaviour
             return true;
         }
 
+        if(ChargeLine == null)
+        {
+            return true;
+        }
+
         return false;
     }
 }
