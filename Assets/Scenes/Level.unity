@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1438,7 +1438,7 @@ GameObject:
   - component: {fileID: 214438122}
   m_Layer: 0
   m_Name: SpawnLoc4
-  m_TagString: Untagged
+  m_TagString: SpawnLoc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1825,7 +1825,7 @@ GameObject:
   - component: {fileID: 320167135}
   m_Layer: 0
   m_Name: SpawnLoc5
-  m_TagString: Untagged
+  m_TagString: SpawnLoc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3693,7 +3693,7 @@ GameObject:
   - component: {fileID: 645342624}
   m_Layer: 0
   m_Name: SpawnLoc3
-  m_TagString: Untagged
+  m_TagString: SpawnLoc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4423,7 +4423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 777689377}
-  - component: {fileID: 777689376}
+  - component: {fileID: 777689378}
   m_Layer: 0
   m_Name: EnemySpawnControl
   m_TagString: Spawner
@@ -4431,31 +4431,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &777689376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 777689375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f144a97cbaafb6d4fa5f0f8b94498a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnLimit: 1
-  enemies: 0
-  EnemiesKilled: 0
-  CanSpawn: 0
-  SpawnCooldown: 2
-  _spawnList:
-  - {fileID: 1338998593877459487, guid: c5240ced8f5f4f840b7a8011fcf9a816, type: 3}
-  _spawnArea:
-  - {fileID: 1700103887}
-  - {fileID: 1553973808}
-  - {fileID: 645342624}
-  - {fileID: 214438122}
-  - {fileID: 320167135}
 --- !u!4 &777689377
 Transform:
   m_ObjectHideFlags: 0
@@ -4476,6 +4451,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &777689378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777689375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d504a1fb8a1454a9e7076ea7a40ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyToSpawn: {fileID: 1338998593877459487, guid: c5240ced8f5f4f840b7a8011fcf9a816,
+    type: 3}
+  spawnerValues: {fileID: 11400000, guid: 7ff7e640d985a9d49b3546872a622431, type: 2}
+  spawnLimit: 12
+  SpawnCooldown: 2
+  EnemiesKilled: 0
+  CanSpawn: 0
 --- !u!1001 &804869384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8455,7 +8449,7 @@ GameObject:
   - component: {fileID: 1553973808}
   m_Layer: 0
   m_Name: SpawnLoc2
-  m_TagString: Untagged
+  m_TagString: SpawnLoc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9334,7 +9328,7 @@ GameObject:
   - component: {fileID: 1700103887}
   m_Layer: 0
   m_Name: SpawnLoc1
-  m_TagString: Untagged
+  m_TagString: SpawnLoc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
