@@ -13,6 +13,25 @@ public class PowerCharge : MonoBehaviour
     public int ChargeDirection;
     public float ChargeAmount; //The amount of charge imparted onto towers once the charge object reaches its tile
 
+    private GameFSM _gameFSM;
+    private bool _destroyOnNextTile;
+    private float _timeAlive;
+
+    private void Awake()
+    {
+        _gameFSM = GameObject.FindGameObjectWithTag("GameFSM").GetComponent<GameFSM>();
+
+        if (_gameFSM != null)
+        {
+            _gameFSM.OnStateChange += OnGameStateChange;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _gameFSM.OnStateChange -= OnGameStateChange;
+    }
+
     private void Start()
     {
         _chargeSpeedCurrent = ChargeSpeedStart;
@@ -42,6 +61,8 @@ public class PowerCharge : MonoBehaviour
         {
             onDespawn();
         }
+
+        _timeAlive += Time.fixedDeltaTime;
     }
 
     private void onTileArrival()
@@ -61,7 +82,7 @@ public class PowerCharge : MonoBehaviour
             }
         }
 
-        if (checkDespawnConditions())
+        if (checkDespawnConditions() || _destroyOnNextTile)
         {
             onDespawn();
         }
@@ -87,5 +108,23 @@ public class PowerCharge : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(_timeAlive >= 1f)
+        {
+            _destroyOnNextTile = true;
+        }
+    }
+
+    public virtual void OnGameStateChange(string newStateName)
+    {
+        switch (newStateName)
+        {
+            case "GamePlacementState":
+                Destroy(gameObject);
+                break;
+        }
     }
 }

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ddf6cf964ca6d54f972e6a18dfb1c1d, type: 3}
-  m_Name: Wave2
+  m_Name: Wave5
   m_EditorClassIdentifier: 
-  RandomizeSpawnPoints: 0
-  TotalRandomSpawns: 0
-  EnabledSpawnPoints: 0100000001
-  TotalEnemies: 4
-  EnemySpawnCooldown: 4
-  MaximumSimultaneousSpawn: 1
+  RandomizeSpawnPoints: 1
+  TotalRandomSpawns: 3
+  EnabledSpawnPoints: 
+  TotalEnemies: 6
+  EnemySpawnCooldown: 3
+  MaximumSimultaneousSpawn: 2
   WaveEndGenerators: 0
   WaveEndTowers: 1
-  WaveEndPower: 2
+  WaveEndPower: 1

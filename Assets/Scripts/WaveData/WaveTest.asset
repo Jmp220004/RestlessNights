@@ -18,6 +18,6 @@ MonoBehaviour:
   TotalEnemies: 90
   EnemySpawnCooldown: 3
   MaximumSimultaneousSpawn: 3
-  WaveEndGenerators: 0
-  WaveEndTowers: 0
-  WaveEndPower: 0
+  WaveEndGenerators: 99
+  WaveEndTowers: 99
+  WaveEndPower: 99

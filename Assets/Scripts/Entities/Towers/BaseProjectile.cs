@@ -9,10 +9,21 @@ public abstract class BaseProjectile : MonoBehaviour
     [SerializeField] private float _moveDirectionX; //negative var will move object right, positive moves left
     [SerializeField] private GameObject _projectile;//projectile gameobject needed in order to destroy self
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private GameFSM _gameFSM;
 
+    private void Awake()
+    {
+        _gameFSM = GameObject.FindGameObjectWithTag("GameFSM").GetComponent<GameFSM>();
+
+        if (_gameFSM != null)
+        {
+            _gameFSM.OnStateChange += OnGameStateChange;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _gameFSM.OnStateChange -= OnGameStateChange;
     }
 
     void FixedUpdate()
@@ -32,5 +43,15 @@ public abstract class BaseProjectile : MonoBehaviour
     {
         //add destroy on collision with enemy
         Destroy(_projectile, _lifeSpan);
+    }
+
+    public virtual void OnGameStateChange(string newStateName)
+    {
+        switch (newStateName)
+        {
+            case "GamePlacementState":
+                Destroy(gameObject);
+                break;
+        }
     }
 }

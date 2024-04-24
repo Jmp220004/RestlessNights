@@ -36,6 +36,11 @@ public class GameFSM : StateMachineMB
 
     public WaveScriptableObject getCurrentWaveData()
     {
+        if(WaveNumber >= WaveData.Count)
+        {
+            return WaveData[WaveData.Count - 1];
+        }
+
         return WaveData[WaveNumber-1];
     }
 }

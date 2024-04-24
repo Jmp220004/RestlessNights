@@ -7861,9 +7861,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c07a849f08b3294c8117cf3219284a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingGenerators: 3
-  _startingTowers: 5
-  _startingCables: 8
+  _startingGenerators: 1
+  _startingTowers: 1
+  _startingCables: 3
 --- !u!1 &1389837410
 GameObject:
   m_ObjectHideFlags: 0
@@ -12197,6 +12197,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: affdb9526a13c524e850a89c063fc67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WaveData:
+  - {fileID: 11400000, guid: 3f6dd7b5dc4bfe243a818bd2268e7d35, type: 2}
+  - {fileID: 11400000, guid: 63ad1e6751a575b4099ef416dd4d79c6, type: 2}
+  - {fileID: 11400000, guid: 1f6a88f0ed968a147b2d896b4bfdee96, type: 2}
+  - {fileID: 11400000, guid: 776702fae1d2c884faeab1abc5d958b3, type: 2}
+  - {fileID: 11400000, guid: f8849260ca5c2304584fb1d59d8e99ab, type: 2}
+  - {fileID: 11400000, guid: 75155a15ec67df847a6a8834cfd0e152, type: 2}
+  - {fileID: 11400000, guid: d40c8b2b1d57b3647ad4b1135ef25714, type: 2}
+  - {fileID: 11400000, guid: 19c21c6b49955c74f95fe5596a1b3a23, type: 2}
+  - {fileID: 11400000, guid: 9fd76caa010246c458f32efe86fb265b, type: 2}
+  - {fileID: 11400000, guid: 744cbb00e5a81cb449e61fb41755c430, type: 2}
+  - {fileID: 11400000, guid: 6dd9049ee37fc7f419b038613a65d3fe, type: 2}
+  WaveNumber: 0
 --- !u!114 &2083136391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12675,6 +12688,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657994344294070612, guid: d97cd1c209d35ad4387d4fa5ebbf3dd5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7657994344294070613, guid: d97cd1c209d35ad4387d4fa5ebbf3dd5,
         type: 3}
