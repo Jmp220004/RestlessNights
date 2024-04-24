@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(RowFlash());
+        RowFlashStart();
     }
     private void Awake()
     {
@@ -75,7 +75,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    IEnumerator RowFlash()
+    private void RowFlashStart()
     {
         int currentSpawnPointIndex = 0;
 
@@ -84,21 +84,21 @@ public class Spawner : MonoBehaviour
             Instantiate(spawnerValues.warning, spawnerValues.spawnPoints[currentSpawnPointIndex], transform.rotation);
             currentSpawnPointIndex = (currentSpawnPointIndex + 1) % spawnerValues.spawnPoints.Length;
         }
-        yield return new WaitForSeconds(5f);
+    }
+
+    private void RowFlashEnd()
+    {
         GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Warning");
         foreach (GameObject obj in allObjects)
         {
             Destroy(obj);
         }
-
     }
 
     public void EndWave()
     {
         Debug.Log("changing to placement state");
         _gameFSM.ChangeState(_gameFSM.PlacementState);
-        StartCoroutine(RowFlash());
-
     }
 
     public void AddEnemyKilled(int number)
@@ -113,10 +113,12 @@ public class Spawner : MonoBehaviour
             case "GamePlacementState":
                 CanSpawn = false;
                 EnemiesKilled = 0;
+                RowFlashStart();
                 break;
 
             case "GameWaveState":
                 CanSpawn = true;
+                RowFlashEnd();
                 break;
         }
     }

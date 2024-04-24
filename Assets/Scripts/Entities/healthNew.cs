@@ -11,6 +11,7 @@ public class healthNew : MonoBehaviour
     [SerializeField] private float maxHealth;
     [Space]
     [Header("Event Options")]
+    [SerializeField] private UnityEvent onCreate;
     [SerializeField] private UnityEvent onDie;
     [SerializeField] private UnityEvent onDamage;
     [SerializeField] private UnityEvent onHeal;
@@ -95,6 +96,8 @@ public class healthNew : MonoBehaviour
             Debug.Log(gameObject.name + " started with " + currentHealth + " and was killed instantly.");
             die();
         }
+
+        onCreate.Invoke();
     }
 
     private void die()
