@@ -221,7 +221,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisGameObject: {fileID: 1338998593877459487}
   _deathParticles: {fileID: 0}
-  _deathSound: {fileID: 0}
+  _deathSound: {fileID: 1431362150571108525, guid: 29800f5127c30874aa9cac2f119c6fc3,
+    type: 3}
 --- !u!1 &3204945791772563396
 GameObject:
   m_ObjectHideFlags: 0

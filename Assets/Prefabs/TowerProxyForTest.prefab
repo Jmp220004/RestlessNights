@@ -386,7 +386,8 @@ MonoBehaviour:
   _projectileSpawnPoint: {fileID: 88019335772234288}
   _projectileSpeed: 0
   _shootVFX: {fileID: 0}
-  _shootSound: {fileID: 0}
+  _shootSound: {fileID: 1340546415261851264, guid: fa160f8e91a14f1478f51c20c83a3992,
+    type: 3}
   _cb: {fileID: 8094040745302530145}
 --- !u!114 &-3141570132179421812
 MonoBehaviour:
@@ -403,6 +404,9 @@ MonoBehaviour:
   currentHealth: 50
   startingHealth: 50
   maxHealth: 50
+  onCreate:
+    m_PersistentCalls:
+      m_Calls: []
   onDie:
     m_PersistentCalls:
       m_Calls:
@@ -453,7 +457,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _thisGameObject: {fileID: 5292089970885441561}
   _deathParticles: {fileID: 0}
-  _deathSound: {fileID: 0}
+  _deathSound: {fileID: 415696340846462803, guid: 79fe72ae93995bf4ab08bb3bda3850d5,
+    type: 3}
 --- !u!1 &5765407666406084335
 GameObject:
   m_ObjectHideFlags: 0
