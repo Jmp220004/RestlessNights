@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Occupied: 0
+  HasPowerObject: 0
   PlaceData: {fileID: 0}
   _placedObject: {fileID: 0}
   _placeable: {fileID: 0}
