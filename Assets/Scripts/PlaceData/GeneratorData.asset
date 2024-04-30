@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b04996b8c1ee424bb752fe41b5d26f2, type: 3}
   m_Name: GeneratorData
   m_EditorClassIdentifier: 
-  objectSpr: {fileID: 21300000, guid: 983e6386270ddf04cac7ed27657ede2b, type: 3}
+  objectSpr: {fileID: 21300000, guid: bc24d844b887d074f8b5b3320bef9dc8, type: 3}
   placeObject: {fileID: 6261050100736329192, guid: 03701518915ef414eb254fb3c0e321aa,
     type: 3}
   ghostObject: {fileID: 6261050100736329192, guid: fa18e5ea882a6c24692926a8f0289deb,
