@@ -220,7 +220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _thisGameObject: {fileID: 1338998593877459487}
-  _deathParticles: {fileID: 0}
+  _deathParticles: {fileID: 5934118536253287143, guid: 27f854c46660c2947beed476c920d637,
+    type: 3}
   _deathSound: {fileID: 1431362150571108525, guid: 29800f5127c30874aa9cac2f119c6fc3,
     type: 3}
 --- !u!1 &3204945791772563396

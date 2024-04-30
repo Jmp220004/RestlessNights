@@ -5,7 +5,7 @@ using UnityEngine;
 public class Die : MonoBehaviour
 {
     [SerializeField] private GameObject _thisGameObject;
-    [SerializeField] private ParticleSystem _deathParticles;
+    [SerializeField] private GameObject _deathParticles;
     [SerializeField] private AudioSource _deathSound;
 
     private Spawner _randomSpawner;
@@ -34,9 +34,8 @@ public class Die : MonoBehaviour
         if (_deathParticles != null)
         {
             // spawn a particle effect from assets
-            ParticleSystem newParticle = Instantiate(_deathParticles,
+            GameObject newParticle = Instantiate(_deathParticles,
                 transform.position, Quaternion.identity);
-            newParticle.Play();
         }
         // play sfx
         if (_deathSound != null)
