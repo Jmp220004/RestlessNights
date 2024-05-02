@@ -23,19 +23,19 @@ public class AudioController : MonoBehaviour
                 // Handle main menu music
                 Debug.Log("Main Menu music selected.");
                 musicSource.clip = placementMusic;
-                StartCoroutine(FadeMusic(musicSource, 2f, 1f));
+                StartCoroutine(FadeMusic(musicSource, 2f, .1f));
                 break;
             case "Wave Music":
                 // Handle main menu music
                 Debug.Log("Main Menu music selected.");
                 musicSource.clip = waveMusic;
-                StartCoroutine(FadeMusic(musicSource, 2f, 1f));
+                StartCoroutine(FadeMusic(musicSource, 2f, .1f));
                 break;
             case "Lose Music":
                 // Handle main menu music
                 Debug.Log("Main Menu music selected.");
                 musicSource.clip = loseMusic;
-                StartCoroutine(FadeMusic(musicSource, 2f, 1f));
+                StartCoroutine(FadeMusic(musicSource, 2f, .1f));
                 break;
             default:
                 // Handle default case (when musicName does not match any of the above cases)
