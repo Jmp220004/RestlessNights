@@ -17,7 +17,7 @@ public class GamePlacementState : State
         base.Enter();
 
         Debug.Log("STATE: Game Placement");
-
+        _controller.audioController.PlayMusic("Placement Music");
         _stateMachine.WaveNumber++;
 
         _controller.UI.waveStartObj.SetActive(true);

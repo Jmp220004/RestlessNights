@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lifeSpan: 20
-  _moveDirectionX: 1
+  _moveDirectionX: 1.5
   _projectile: {fileID: 6778010998018967520}
 --- !u!114 &-2446439045097790013
 MonoBehaviour:

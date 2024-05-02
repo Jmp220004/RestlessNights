@@ -4268,7 +4268,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1771663358}
   SFXSource: {fileID: 1791779632}
-  mainMenu: {fileID: 0}
+  placementMusic: {fileID: 8300000, guid: cffc0e69001e1f54791c3ed1ae0efab0, type: 3}
+  waveMusic: {fileID: 8300000, guid: 51bf5a56e68f61440aeea293422409f3, type: 3}
+  loseMusic: {fileID: 8300000, guid: ceb9202113774c74281f2fd1283f5f84, type: 3}
   confirm: {fileID: 0}
   deny: {fileID: 0}
 --- !u!4 &640708438
@@ -7414,7 +7416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1195509455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -23.43, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11945,7 +11947,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: cffc0e69001e1f54791c3ed1ae0efab0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

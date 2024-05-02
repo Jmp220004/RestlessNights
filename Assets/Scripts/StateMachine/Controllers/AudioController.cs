@@ -9,7 +9,9 @@ public class AudioController : MonoBehaviour
     public AudioSource SFXSource;
 
     [Header("Audio Clips")]
-    public AudioClip mainMenu;
+    public AudioClip placementMusic;
+    public AudioClip waveMusic;
+    public AudioClip loseMusic;
 
     [Header("SFX")]
     public AudioClip confirm;
@@ -17,10 +19,22 @@ public class AudioController : MonoBehaviour
 
     public void PlayMusic(string musicName) {
         switch(musicName) {
-            case "Main Menu":
+            case "Placement Music":
                 // Handle main menu music
                 Debug.Log("Main Menu music selected.");
-                musicSource.clip = mainMenu;
+                musicSource.clip = placementMusic;
+                StartCoroutine(FadeMusic(musicSource, 2f, 1f));
+                break;
+            case "Wave Music":
+                // Handle main menu music
+                Debug.Log("Main Menu music selected.");
+                musicSource.clip = waveMusic;
+                StartCoroutine(FadeMusic(musicSource, 2f, 1f));
+                break;
+            case "Lose Music":
+                // Handle main menu music
+                Debug.Log("Main Menu music selected.");
+                musicSource.clip = loseMusic;
                 StartCoroutine(FadeMusic(musicSource, 2f, 1f));
                 break;
             default:

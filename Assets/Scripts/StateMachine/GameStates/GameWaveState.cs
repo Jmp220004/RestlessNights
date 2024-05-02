@@ -17,6 +17,7 @@ public class GameWaveState : State
         base.Enter();
 
         Debug.Log("STATE: Game Wave");
+        _controller.audioController.PlayMusic("Wave Music");
 
         // Disables everything on the canvas
         // Iterate through all child GameObjects

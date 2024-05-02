@@ -19,6 +19,8 @@ public class GameLoseState : State
         Time.timeScale = 0;
         Debug.Log("STATE: Game Setup");
 
+        _controller.audioController.PlayMusic("Lose Music");
+
         // Activate canva elems
         _controller.UI.stateName.text = "Lose State";
     }
